@@ -11,9 +11,12 @@
 1.花濑-一水久钟
 
 **后端：**
-- **操作系统**  Winserver 2022。
+- **操作系统：**  Winserver 2022。
 - **Web API框架：** ASP.NET Core Web API（Net 7）。
+- **Web Server：** Nginx 1.24.0
 - **通用通信：** 花濑自研TCP和KCP框架。
+- **数据库：** Microsoft SQL Server（MSSQL2022）
+- **缓存数据库：** Redis For Windows
 
 ------------
 感谢大家一直以来对花濑游戏的关注和支持。
