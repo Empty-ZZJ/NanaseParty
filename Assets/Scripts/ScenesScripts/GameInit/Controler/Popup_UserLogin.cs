@@ -2,6 +2,7 @@ using Common;
 using Common.Network;
 using Common.UI;
 using DG.Tweening;
+using GameManager;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
@@ -43,7 +44,31 @@ namespace ScenesScripts
             try
             {
                 //检查是否正确
-                JsonConvert.DeserializeObject<JObject>(_res)["status"].Equals("success");
+
+                /*
+                 *   {
+                        "status":"success",
+                        "message":10001,
+                        "type":"1",
+                        "token":"dawfawfjadha省略了"
+                     }
+                 */
+                var _json_data = JsonConvert.DeserializeObject<JObject>(_res);
+                if (!_json_data["status"].ToString().Equals("success"))
+                {
+                    PopupManager.PopMessage("好像哪里不对", "账号或密码错误！");
+                    return;
+                }
+                //successful login
+
+                //config
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _json_data["message"].ToString());
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _json_data["token"].ToString());
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", _json_data["type"].ToString());
+                Button_Click_Close();
+
+
 
             }
             catch

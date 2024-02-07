@@ -176,8 +176,6 @@ namespace Common
             }
             try
             {
-                Debug.Log(strToSave);
-
                 var _file = FileManager.CreatTextFile(newFilePath);
                 _file.Write(strToSave);
                 _file.Close();

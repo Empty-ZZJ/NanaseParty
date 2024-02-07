@@ -76,7 +76,6 @@ namespace Common
                 Debug.Log(e);
             }
             fs.Close();//切记关闭
-
             int width = 2048;//图片的宽（这里两个参数可以提到方法参数中）
             int height = 2048;//图片的高（这里说个题外话，pico相关的开发，这里不能大于4k×4k不然会显示异常，当时开发pico的时候应为这个问题找了大半天原因，因为美术给的图是6000*3600，导致出现切几张图后就黑屏了。。。
             Texture2D texture = new Texture2D(width, height);
@@ -89,6 +88,7 @@ namespace Common
                 return null;
             }
         }
+
 
     }
 }

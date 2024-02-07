@@ -11,7 +11,6 @@ namespace ScenesScripts
         /// <summary>
         /// 游玩须知
         /// </summary>
-        public GameObject GameObject_GameNotice;
         public static bool IsCanTouch = false;
 
         private void Start ()
@@ -19,14 +18,10 @@ namespace ScenesScripts
 
             if (ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsReadInstructions") != "True")
             {
-                GameObject_GameNotice.SetActive(true);
+                Instantiate(Resources.Load<GameObject>("GameObject/Popup/Canvas_Popup_PlayInstructions"));
+
             }
 
-        }
-        public void ReadInstructions ()
-        {
-            ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsReadInstructions", "True");
-            //IsCanTouch = true;
         }
 
         public void StartGame ()

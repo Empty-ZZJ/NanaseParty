@@ -1,5 +1,3 @@
-using Common;
-using System.IO;
 using UnityEngine;
 
 public class GameInit : MonoBehaviour
@@ -10,8 +8,6 @@ public class GameInit : MonoBehaviour
         //60FPS
         Application.targetFrameRate = 60;
 
-        if (!File.Exists($"{Application.persistentDataPath}/User/Config.hoilai"))
-            FileManager.CreatTextFile($"{Application.persistentDataPath}/User/Config.hoilai");
 
 
     }
