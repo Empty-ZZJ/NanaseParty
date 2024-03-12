@@ -140,10 +140,6 @@ namespace ScenesScripts
                 return;
             }
             PopupManager.PopMessage("重置成功", " 点击登录。");
-
-
-
-
             Button_Click_Close();
 
 

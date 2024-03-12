@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace ScenesScripts
 {
     public class StartGameControler : MonoBehaviour
     {
+        public Text GameVer;
         /// <summary>
         /// 游玩须知
         /// </summary>
@@ -15,19 +17,15 @@ namespace ScenesScripts
 
         private void Start ()
         {
-
+            GameVer.text = $"Ver ： {Application.version}";
             if (ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsReadInstructions") != "True")
             {
                 Instantiate(Resources.Load<GameObject>("GameObject/Popup/Canvas_Popup_PlayInstructions"));
-
             }
 
         }
-
         public void StartGame ()
         {
-
-
             if (!ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsLogin").Equals("True"))
             {
                 Instantiate(Resources.Load<GameObject>("GameObject/Popup/Popup_SignIn"), GameObject.Find("Canvas").GetComponent<Transform>());

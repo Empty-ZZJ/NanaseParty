@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,12 +17,14 @@ namespace Common.Network
         /// </summary>
         /// <param name="url"></param>
         /// <param name="queryParams"></param>
+        /// <param name="timeoutSeconds">超时时间</param>
         /// <returns></returns>
-        public static async Task<string> GetAsync (string url, object queryParams = null)
+        public static async Task<string> GetAsync (string url, object queryParams = null, int timeoutSeconds = 5)
         {
             try
             {
                 using HttpClient httpClient = new();
+                using CancellationTokenSource cts = new(TimeSpan.FromSeconds(timeoutSeconds));
 
                 UriBuilder uriBuilder = new(url);
 
@@ -41,19 +44,18 @@ namespace Common.Network
                     uriBuilder.Query = queryString.TrimEnd('&');
                     Debug.Log(uriBuilder.Uri);
                 }
-
-
-                HttpResponseMessage response = await httpClient.GetAsync(uriBuilder.Uri);
+                HttpResponseMessage response = await httpClient.GetAsync(uriBuilder.Uri, cts.Token);
                 response.EnsureSuccessStatusCode();
-
                 return await response.Content.ReadAsStringAsync();
+            }
+            catch (OperationCanceledException)
+            {
+                return "Request timed out.";
             }
             catch (Exception ex)
             {
-
                 return ex.Message;
             }
-
         }
         /// <summary>
         /// 基于反射实现的Post
@@ -62,6 +64,7 @@ namespace Common.Network
         /// <param name="url">地址</param>
         /// <param name="queryParams">参数</param>
         /// <param name="action">回调</param>
+        ///  <param name="timeoutSeconds">超时时间</param>
         /// <returns></returns>
         public static async Task<string> Post (string url, object queryParams, UnityAction action = null)
         {
@@ -75,14 +78,19 @@ namespace Common.Network
                     form.AddField(property.Name, value.ToString());
                 }
             }
-            using UnityWebRequest www = UnityWebRequest.Post(url, form);
 
+
+            using UnityWebRequest www = UnityWebRequest.Post(url, form);
             await www.SendWebRequest();
+
             if (www.result == UnityWebRequest.Result.Success)
             {
                 action?.Invoke();
-
                 return www.downloadHandler.text;
+            }
+            else if (www.result == UnityWebRequest.Result.ConnectionError && www.error.Contains("Request timed out"))
+            {
+                return "Request timed out.";
             }
             else
             {
@@ -98,8 +106,5 @@ namespace Common.Network
             asyncOp.completed += obj => { tcs.SetResult(null); };
             return ((Task)tcs.Task).GetAwaiter();
         }
-
-
-
     }
 }

@@ -11,6 +11,7 @@ namespace OBJScripts
         public Button OKButton;
         public Button CancelButton;
         public RectTransform MainPopup;
+
         public void Close ()
         {
             MainPopup.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() =>

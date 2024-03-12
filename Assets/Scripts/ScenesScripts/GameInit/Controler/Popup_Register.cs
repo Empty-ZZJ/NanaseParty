@@ -2,6 +2,7 @@ using Common;
 using Common.Network;
 using Common.UI;
 using DG.Tweening;
+using GameManager;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
@@ -11,6 +12,7 @@ namespace ScenesScripts
 {
     public class Popup_Register : MonoBehaviour
     {
+
         public InputField InputField_User;
         public InputField InputField_Password;
         public InputField InputField_Password_Repeat;
@@ -45,17 +47,28 @@ namespace ScenesScripts
             var _params = new
             {
                 account = _account,
-                password = _password
+                password = GameAPI.GenerateSha256(_password),
             };
             Debug.Log(JsonConvert.SerializeObject(_params));
             var _res = await NetworkHelp.Post($"{GameConst.API_URL}/Account/Register", _params);
             _loading.KillLoading();
             //_res为返回的json
+            Debug.Log(_res);
             try
             {
                 //检查是否正确
-                JsonConvert.DeserializeObject<JObject>(_res)["status"].Equals("success");
-                Debug.Log(_res);
+                var _json = JsonConvert.DeserializeObject<JObject>(_res);
+                if (!_json["status"].Equals("success"))
+                {
+                    PopupManager.PopMessage("错误", "注册失败！");
+                    return;
+                }
+                //注册成功
+                PopupManager.PopMessage("恭喜！", "恭喜您成为七濑排队的一员！", () => { Button_Click_Close(); });
+                var _uid = _json["UID"].ToString();
+                var _token = _json["token"].ToString();
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _uid);
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _token);
             }
             catch
             {
@@ -100,6 +113,15 @@ namespace ScenesScripts
                     Destroy(this.gameObject);
                 });
         }
+        /*
+            public class Model_Register
+        {
+            public required string status { get; set; }
+            public long UID { get; set; }
+            public string? token { get; set; }
+
+        }
+          */
 
     }
 }

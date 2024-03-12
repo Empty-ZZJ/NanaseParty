@@ -23,14 +23,14 @@ namespace Common.Network
         {
             try
             {
+
                 client = new TcpClient();
                 var connectTask = client.ConnectAsync(ipAddress, port);
 
                 if (await Task.WhenAny(connectTask, Task.Delay(timeoutInMs)) != connectTask)
                 {
 
-                    if (onTimeout != null)
-                        onTimeout();
+                    onTimeout?.Invoke();
                     return;
                 }
 
