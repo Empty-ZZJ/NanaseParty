@@ -1,6 +1,7 @@
 using Common;
 using Common.Network;
 using Common.UI;
+using DG.Tweening;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TetraCreations.Attributes;
@@ -20,7 +21,11 @@ namespace ScenesScripts.FocusClock
         [Title("搜索结果列表的父组件")]
         public Transform Creat_MusicListPosi;
 
+        [Title("弹出层")]
+        public GameObject Object_Popup;
+
         private GameObject MusicItem_List;
+
 
         private List<GameObject> MusicList_List_Showed = new();
         public void Start ()
@@ -52,6 +57,13 @@ namespace ScenesScripts.FocusClock
                 MusicList_List_Showed.Add(_obj.gameObject);
             }
             Debug.Log(JsonConvert.SerializeObject(_data));
+        }
+        public void Button_Click_Close ()
+        {
+            Object_Popup.GetComponent<RectTransform>().DOScale(0, 0.3f).OnComplete(() =>
+            {
+                Destroy(this.gameObject);
+            });
         }
     }
 }

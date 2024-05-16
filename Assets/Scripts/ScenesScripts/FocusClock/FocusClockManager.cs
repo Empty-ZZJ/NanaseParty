@@ -28,6 +28,8 @@ namespace ScenesScripts.FocusClock
 
         [Title("系统信息标签")]
         public Text Text_SystemInfo;
+
+
         /// <summary>
         /// 点击 开始 按钮 回调
         /// </summary>
@@ -80,7 +82,11 @@ namespace ScenesScripts.FocusClock
             Text_SystemInfo.text = $"电量：{SystemInfo.batteryLevel * 100} %      时间：{DateTime.Now:T}";
 
         }
-
+        public void Button_Click_Button_Start ()
+        {
+            var _obj = Resources.Load<GameObject>("GameObject/Scene/FocusClock/SelectTime");
+            Instantiate(_obj, GameObject.Find("Canvas").transform);
+        }
 
     }
 

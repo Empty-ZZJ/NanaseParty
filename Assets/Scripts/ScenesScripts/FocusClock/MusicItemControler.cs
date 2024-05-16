@@ -17,6 +17,9 @@ namespace ScenesScripts.FocusClock
         [Title("歌曲ID")]
         public long MusicID;
 
+
+
+
         private AudioSource AudioSource_Music;
         private void Start ()
         {
@@ -44,6 +47,7 @@ namespace ScenesScripts.FocusClock
                 }
                 AudioSource_Music.clip = DownloadHandlerAudioClip.GetContent(www);
                 AudioSource_Music.Play();
+                PopupManager.PopDynamicIsland("正在播放", Title.text, Resources.Load<Sprite>("Texture2D/FocusClock/PictoIcon_Music_On"));
 
             }
             catch (Exception ex)
