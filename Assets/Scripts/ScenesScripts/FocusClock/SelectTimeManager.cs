@@ -10,35 +10,7 @@ namespace ScenesScripts.FocusClock
         public ScrollRect ScrollRect_Minute;
         [Title("分钟 内容")]
         public GameObject Content_Minute;
-        private void FindCenterItem (ScrollRect scrollRect, GameObject content)
-        {
-            float contentHeight = content.GetComponent<RectTransform>().rect.height;
-            float viewportHeight = scrollRect.viewport.rect.height;
-            float centerLine = contentHeight * 0.5f - viewportHeight * 0.5f;
 
-            float minDistance = Mathf.Infinity;
-
-
-            for (int i = 0; i < content.transform.childCount; i++)
-            {
-                GameObject child = content.transform.GetChild(i).gameObject;
-                RectTransform childRectTransform = child.GetComponent<RectTransform>();
-                float childCenterY = childRectTransform.localPosition.y + childRectTransform.rect.height * 0.5f;
-                float distance = Mathf.Abs(centerLine - childCenterY);
-
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    Debug.Log(child.name);
-                }
-            }
-
-
-        }
-        private void Update ()
-        {
-            FindCenterItem(ScrollRect_Minute, Content_Minute);
-        }
         public void Button_Click_Close ()
         {
 
@@ -46,6 +18,12 @@ namespace ScenesScripts.FocusClock
             {
                 Destroy(this.gameObject.transform.parent.gameObject);
             });
+        }
+        public void Button_Click_Start ()
+        {
+            Button_Click_Close();
+            GameObject.Find("EventSystem").GetComponent<FocusClockManager>().StartClock();
+
         }
     }
 }

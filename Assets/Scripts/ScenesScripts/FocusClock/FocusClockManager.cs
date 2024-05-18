@@ -29,33 +29,48 @@ namespace ScenesScripts.FocusClock
         [Title("系统信息标签")]
         public Text Text_SystemInfo;
 
+        [Title("开始按钮")]
+        public Button Button_Start;
+
+        public static class TimeInof
+        {
+            public static int minutes;
+            public static int seconds;
+            public static bool IsDoing = false;
+        }
+        private static Coroutine TimeCoroutine;
 
         /// <summary>
         /// 点击 开始 按钮 回调
         /// </summary>
         public void Button_Click_Game ()
         {
+            Debug.Log($"当前状态:{TimeInof.IsDoing}");
+            if (!TimeInof.IsDoing)
+            {
+                var _obj = Resources.Load<GameObject>("GameObject/Scene/FocusClock/SelectTime");
+                Instantiate(_obj, GameObject.Find("Canvas").transform);
+
+
+                return;
+            }
+            TimeInof.IsDoing = false;
+            Button_Start.GetComponentInChildren<Text>().text = "开始";
+            StopCoroutine(TimeCoroutine);
 
         }
         /// <summary>
-        /// 指定分钟数启动
+        /// 启动
         /// </summary>
-        /// <param name="minutes"></param>
-        public void StartWithMinutes (int minutes)
+        public void StartClock ()
         {
-            StartCoroutine(ChangeTime(minutes * 60));
+            TimeCoroutine = StartCoroutine(ChangeTime(TimeInof.minutes * 60 + TimeInof.seconds));
             MenheraAnimate.Play("studying");
+            TimeInof.IsDoing = true;
+            Button_Start.GetComponentInChildren<Text>().text = "取消";
 
         }
-        /// <summary>
-        /// 测试 30分钟开始
-        /// </summary>
-        [Button("测试 30分钟开始")]
-        public void Test30Minutes ()
-        {
 
-            StartWithMinutes(30);
-        }
         private IEnumerator ChangeTime (int time)
         {
             float timer = 0;
@@ -74,6 +89,7 @@ namespace ScenesScripts.FocusClock
                 }
                 yield return null;
             }
+            TimeInof.IsDoing = false;
             //over
 
         }
@@ -81,11 +97,6 @@ namespace ScenesScripts.FocusClock
         {
             Text_SystemInfo.text = $"电量：{SystemInfo.batteryLevel * 100} %      时间：{DateTime.Now:T}";
 
-        }
-        public void Button_Click_Button_Start ()
-        {
-            var _obj = Resources.Load<GameObject>("GameObject/Scene/FocusClock/SelectTime");
-            Instantiate(_obj, GameObject.Find("Canvas").transform);
         }
 
     }
