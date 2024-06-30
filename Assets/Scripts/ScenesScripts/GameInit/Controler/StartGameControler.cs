@@ -31,6 +31,7 @@ namespace ScenesScripts
                 Instantiate(Resources.Load<GameObject>("GameObject/Popup/Popup_SignIn"), GameObject.Find("Canvas").GetComponent<Transform>());
                 return;
             }
+
             SceneManager.LoadSceneAsync(2);
         }
 

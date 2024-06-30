@@ -58,7 +58,7 @@ namespace ScenesScripts
             {
                 //检查是否正确
                 var _json = JsonConvert.DeserializeObject<JObject>(_res);
-                if (!_json["status"].Equals("success"))
+                if (_json["token"].ToString().Length != 32)
                 {
                     PopupManager.PopMessage("错误", "注册失败！");
                     return;

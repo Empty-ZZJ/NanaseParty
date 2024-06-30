@@ -31,7 +31,10 @@ namespace ScenesScripts.FocusClock
             if (_progress_value < 0) _progress_value = 0;
             if (_progress_value > 1) _progress_value = 1;
 
+            //你他妈的给我解释一下这些数字很难吗，啊？？
             var name = $"Text-{Math.Floor(8 - _progress_value / (1 / 0.7) * 10)}";
+            //这他么的8 0.1 10都是啥玩意？
+            //这是哪个逆天玩意写的傻逼代码？
 
             if (name == "Text-8") name = "Text-7";
             if (name == "Text-0") name = "Text-1";

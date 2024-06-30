@@ -46,14 +46,14 @@ namespace ScenesScripts.FocusClock
         public void Button_Click_Game ()
         {
             Debug.Log($"当前状态:{TimeInof.IsDoing}");
-            if (!TimeInof.IsDoing)
+
+            if (!TimeInof.IsDoing)//暂停或没有开始
             {
                 var _obj = Resources.Load<GameObject>("GameObject/Scene/FocusClock/SelectTime");
                 Instantiate(_obj, GameObject.Find("Canvas").transform);
-
-
                 return;
             }
+
             TimeInof.IsDoing = false;
             Button_Start.GetComponentInChildren<Text>().text = "开始";
             StopCoroutine(TimeCoroutine);

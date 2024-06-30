@@ -5,6 +5,7 @@ using DG.Tweening;
 using GameManager;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,18 +44,8 @@ namespace ScenesScripts
             Debug.Log(_res);
             try
             {
-                //检查是否正确
-
-                /*
-                 *   {
-                        "status":"success",
-                        "message":10001,
-                        "type":"1",
-                        "token":"dawfawfjadha省略了"
-                     }
-                 */
                 var _json_data = JsonConvert.DeserializeObject<JObject>(_res);
-                if (!_json_data["status"].ToString().Equals("success"))
+                if (_json_data["token"].ToString().Length != 32)
                 {
                     PopupManager.PopMessage("好像哪里不对", "账号或密码错误！");
                     return;
@@ -63,21 +54,17 @@ namespace ScenesScripts
 
                 //config
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
-                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _json_data["message"].ToString());
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _json_data["UID"].ToString());
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _json_data["token"].ToString());
-                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", _json_data["type"].ToString());
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", _json_data["Type"].ToString());
                 Button_Click_Close();
-
-
-
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.LogError(ex.Message);
                 PopupManager.PopMessage("错误", "登录失败！");
                 return;
             }
-
-
         }
         private static bool IsEmailOrPhone (string s)
         {

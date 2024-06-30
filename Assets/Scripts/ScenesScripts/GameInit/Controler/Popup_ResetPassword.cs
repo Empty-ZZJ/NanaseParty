@@ -64,7 +64,8 @@ namespace ScenesScripts
             Debug.Log(_res);
             try
             {
-                JsonConvert.DeserializeObject<JObject>(_res)["status"].Equals("success");
+                JsonConvert.DeserializeObject<JObject>(_res)["token"].ToString();
+
                 StartCoroutine(CountDownFunction());
                 IsVerification = true;
 

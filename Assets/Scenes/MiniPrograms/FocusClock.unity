@@ -620,7 +620,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0.49916667
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -769,7 +769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 511.36694}
+  m_AnchoredPosition: {x: 0, y: 28614320}
   m_SizeDelta: {x: 0, y: 1381.318}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &123181909
@@ -1922,6 +1922,7 @@ GameObject:
   - component: {fileID: 574109572}
   - component: {fileID: 574109571}
   - component: {fileID: 574109570}
+  - component: {fileID: 574109573}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1995,6 +1996,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &574109573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574109569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &617586789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,8 +2112,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1339329045}
   m_HandleRect: {fileID: 1339329044}
   m_Direction: 3
-  m_Value: 0
-  m_Size: 0.6297979
+  m_Value: -55880.996
+  m_Size: 0.62948704
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2194,7 +2228,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00:00
+  m_Text: 29:57
 --- !u!222 &748219605
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4732,7 +4766,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1480274932}
         m_TargetAssemblyTypeName: ScenesScripts.FocusClock.FocusClockManager, Assembly-CSharp
-        m_MethodName: Button_Click_Button_Start
+        m_MethodName: Button_Click_Game
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
