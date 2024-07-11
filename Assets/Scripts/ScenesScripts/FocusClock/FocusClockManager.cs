@@ -1,3 +1,4 @@
+using Common;
 using System;
 using System.Collections;
 using TetraCreations.Attributes;
@@ -15,7 +16,7 @@ namespace ScenesScripts.FocusClock
         /// <summary>
         /// 胡桃的切片
         /// </summary>
-        [Title("胡桃的切片")]
+        [Title("胡桃切片的动画组件")]
         public Animator MenheraAnimate;
         /// <summary>
         /// 时钟显示数字
@@ -54,8 +55,14 @@ namespace ScenesScripts.FocusClock
                 return;
             }
 
+            //已经开始了，再次点击就要取消
             TimeInof.IsDoing = false;
+
+
+            MenheraAnimate.Play($"fail{(GameAPI.GetRandomInAB(1, 10) > 5 ? "" : "2")}");//不用设置速度，动画会自动调用事件
+
             Button_Start.GetComponentInChildren<Text>().text = "开始";
+
             StopCoroutine(TimeCoroutine);
 
         }
@@ -66,6 +73,7 @@ namespace ScenesScripts.FocusClock
         {
             TimeCoroutine = StartCoroutine(ChangeTime(TimeInof.minutes * 60 + TimeInof.seconds));
             MenheraAnimate.Play("studying");
+            MenheraAnimate.speed = 1;
             TimeInof.IsDoing = true;
             Button_Start.GetComponentInChildren<Text>().text = "取消";
 
@@ -89,6 +97,8 @@ namespace ScenesScripts.FocusClock
                 }
                 yield return null;
             }
+            MenheraAnimate.Play("happy");
+            Button_Start.GetComponentInChildren<Text>().text = "开始";
             TimeInof.IsDoing = false;
             //over
 
@@ -96,7 +106,13 @@ namespace ScenesScripts.FocusClock
         public void Update ()
         {
             Text_SystemInfo.text = $"电量：{SystemInfo.batteryLevel * 100} %      时间：{DateTime.Now:T}";
-
+        }
+        /// <summary>
+        /// 设置0的animator播放速度
+        /// </summary>
+        public void SetZeroSpeed ()
+        {
+            MenheraAnimate.speed = 0;
         }
 
     }

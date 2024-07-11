@@ -24,7 +24,7 @@ namespace ScenesScripts
             }
 
         }
-        public void StartGame ()
+        public async void StartGame ()
         {
             if (!ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsLogin").Equals("True"))
             {
@@ -32,7 +32,7 @@ namespace ScenesScripts
                 return;
             }
 
-            SceneManager.LoadSceneAsync(2);
+            await SceneManager.LoadSceneAsync("Game-Lobby");
         }
 
         public void Button_Click_UserLogOut ()

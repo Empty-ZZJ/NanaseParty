@@ -88,6 +88,42 @@ namespace Common
                 return null;
             }
         }
+        /// <summary>
+        /// 在[minA，maxB]中产生一个随机数，并返回它
+        /// </summary>
+        /// <param name="minA"></param>
+        /// <param name="maxB"></param>
+        /// <returns></returns>
+        public static int GetRandomInAB (int minA, int maxB)
+        {
+            try
+            {
+                if (maxB > minA)
+                {
+                    byte[] bytes = new byte[4];
+                    RandomNumberGenerator.Fill(bytes);
+                    int seed = BitConverter.ToInt32(bytes, 0);
+                    string strTick = Convert.ToString(DateTime.Now.Ticks);
+                    if (strTick.Length > 8)
+                        strTick = strTick.Substring(strTick.Length - 8, 8);
+                    seed += Convert.ToInt32(strTick);
+                    var random = new System.Random(seed);
+                    return random.Next(minA, maxB);
+                }
+                else
+                {
+                    return -1; // 返回 -1 表示参数无效
+                }
+            }
+            catch
+            {
+
+                return -1; // 返回 -1 表示参数无效
+            }
+
+
+
+        }
 
 
     }

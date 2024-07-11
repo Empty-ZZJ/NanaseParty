@@ -70,9 +70,10 @@ namespace ScenesScripts
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _uid);
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _token);
             }
-            catch
+            catch (System.Exception ex)
             {
-                PopupManager.PopMessage("错误", "注册失败！");
+                AppLogger.Log($"{ex.Message}  {ex.Source}");
+                PopupManager.PopMessage("错误", $"注册失败！错误信息：{ex.Message}");
                 return;
             }
 

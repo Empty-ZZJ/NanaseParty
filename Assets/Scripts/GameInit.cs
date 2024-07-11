@@ -7,7 +7,7 @@ public class GameInit : MonoBehaviour
     {
         //60FPS
         Application.targetFrameRate = 60;
-
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 
     }

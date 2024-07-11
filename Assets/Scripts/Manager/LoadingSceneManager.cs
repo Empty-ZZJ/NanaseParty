@@ -11,12 +11,13 @@ namespace GameManager
             this.WillsceneID = sceneID;
             if (sceneID.GetType() == typeof(int))
             {
-
+                //场景ID
             }
             else
             {
-
+                //场景名称
             }
         }
+
     }
 }
