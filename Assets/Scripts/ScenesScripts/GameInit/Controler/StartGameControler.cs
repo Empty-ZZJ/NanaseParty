@@ -2,7 +2,6 @@ using GameManager;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace ScenesScripts
@@ -24,15 +23,15 @@ namespace ScenesScripts
             }
 
         }
-        public async void StartGame ()
+        public void StartGame ()
         {
             if (!ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsLogin").Equals("True"))
             {
                 Instantiate(Resources.Load<GameObject>("GameObject/Popup/Popup_SignIn"), GameObject.Find("Canvas").GetComponent<Transform>());
                 return;
             }
+            var _ = new LoadingSceneManager<string>("Game-Lobby");
 
-            await SceneManager.LoadSceneAsync("Game-Lobby");
         }
 
         public void Button_Click_UserLogOut ()

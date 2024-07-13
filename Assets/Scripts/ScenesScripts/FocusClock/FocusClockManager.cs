@@ -1,4 +1,5 @@
 using Common;
+using GameManager;
 using System;
 using System.Collections;
 using TetraCreations.Attributes;
@@ -114,7 +115,10 @@ namespace ScenesScripts.FocusClock
         {
             MenheraAnimate.speed = 0;
         }
-
+        public void Button_Click_Back ()
+        {
+            var _ = new LoadingSceneManager<string>("Game-Lobby");
+        }
     }
 
 }
