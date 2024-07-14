@@ -5,10 +5,10 @@ using UnityEngine;
 
 public static class AppLogger
 {
-    private static object Lock_log;
+    private static object Lock_log = new();
     public static void Log (string msg, string tag_type = "msg")
     {
-
+        Debug.Log(msg);
         string logPath = Application.persistentDataPath + "/log";
         if (!Directory.Exists(logPath)) Directory.CreateDirectory(logPath);
         string lin_msg = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss-ffff") + "] " + tag_type + " : " + msg + "\r\n";

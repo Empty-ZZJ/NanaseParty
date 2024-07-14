@@ -34,7 +34,11 @@ namespace ScenesScripts.FocusClock
         }
         public async void Button_Click_Search ()
         {
-
+            if (InputField_Music.text.Trim() == "")
+            {
+                PopupManager.PopMessage("提示", "请正确输入歌曲名。");
+                return;
+            }
             var _loading = new ShowLoading("搜索中");
             var _respond = await NetworkHelp.GetAsync($"{API_URL_MUSIC}/search", new { keywords = InputField_Music.text });
             var _data = JsonConvert.DeserializeObject<MusicSearchModel>(_respond);

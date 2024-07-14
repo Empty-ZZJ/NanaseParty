@@ -32,7 +32,7 @@ namespace ScenesScripts.FocusClock
         public Text Text_SystemInfo;
 
         [Title("开始按钮")]
-        public Button Button_Start;
+        public SupperButton Button_Start;
 
         public static class TimeInof
         {
