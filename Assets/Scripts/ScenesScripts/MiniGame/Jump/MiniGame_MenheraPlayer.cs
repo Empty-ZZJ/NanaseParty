@@ -34,7 +34,7 @@ namespace ScenesScripts.MiniGame.JumpGame
                 Debug.Log("游戏结束！");
                 ani.enabled = false;
                 MiniGame_JumpCore.Set_GameState_Jump_static(false);
-                Instantiate(Resources.Load<GameObject>("Prefabs/UI/MiniGame/MiniGame_Jump_Menu"));
+                Instantiate(Resources.Load<GameObject>("GameObject/Scene/MiniGame/Jump/MiniGame_Jump_Menu"));
                 PopupManager.PopDynamicIsland("提示", "游戏结束");
             }
         }
