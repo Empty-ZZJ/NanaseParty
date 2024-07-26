@@ -31,12 +31,12 @@ namespace Common
         }
         public static GameObject PopDynamicIsland (string title, string content, Sprite icon = null)
         {
-            var _obj = Resources.Load<GameObject>("GameObject/Popup/Popup_DynamicIsland");
+            var _obj = MonoBehaviour.Instantiate(Resources.Load<GameObject>("GameObject/Popup/Popup_DynamicIsland"));
             var _ = _obj.GetComponentInChildren<PopupDynamicIsland>();
             _.Title.text = title;
             _.Content.text = content;
             _.ICON = icon;
-            return MonoBehaviour.Instantiate(_obj);
+            return _obj;
         }
     }
 }

@@ -14,7 +14,6 @@ namespace OBJScripts
 
         private void Start ()
         {
-
             if (ICON == null)
             {
                 Destroy(Image_ICON.gameObject);

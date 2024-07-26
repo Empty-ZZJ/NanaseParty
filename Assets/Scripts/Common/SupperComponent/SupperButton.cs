@@ -7,13 +7,13 @@ public class SupperButton : Button
     private static AudioClip AudioEffict_Click;
     private AudioSource AudioPlayer;
     public bool Has_ClickAudio = true;
-    protected override void Awake ()
+    protected override void Start ()
     {
         if (AudioEffict_Click == null)
             AudioEffict_Click = Resources.Load<AudioClip>("Audio/Effict/click");
         if (AudioPlayer == null)
             AudioPlayer = this.gameObject.AddComponent<AudioSource>();
-        base.Awake();
+        base.Start();
     }
     protected override void DoStateTransition (SelectionState state, bool instant)
     {

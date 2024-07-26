@@ -1,26 +1,28 @@
 ﻿using UnityEngine;
-
-/// <summary>
-/// 冰块生成器
-/// </summary>
-public class IceSpawner : MonoBehaviour
+namespace ScenesScripts.MiniGame.XiaoXiaoLe
 {
-    public GameObject iceObj;
-
-    void Start()
+    /// <summary>
+    /// 生成器
+    /// </summary>
+    public class IceSpawner : MonoBehaviour
     {
-        iceObj.transform.localScale = Vector3.one * GlobalDef.CELL_SIZE;
-        // 生成冰块整列
-        for (int rowIndex = 0; rowIndex < GlobalDef.ROW_COUNT; ++rowIndex)
+        public GameObject iceObj;
+
+        void Start ()
         {
-            for (int columIndex = 0; columIndex < GlobalDef.COLUM_COUNT; ++columIndex)
+            iceObj.transform.localScale = Vector3.one * GlobalDef.CELL_SIZE;
+            // 生成冰块整列
+            for (int rowIndex = 0; rowIndex < GlobalDef.ROW_COUNT; ++rowIndex)
             {
-                // 实例化冰块物体
-                var obj = Instantiate(iceObj);
-                obj.transform.SetParent(iceObj.transform.parent, false);
-                obj.transform.localPosition = new Vector3((columIndex - GlobalDef.COLUM_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, (rowIndex - GlobalDef.ROW_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, 0);
+                for (int columIndex = 0; columIndex < GlobalDef.COLUM_COUNT; ++columIndex)
+                {
+                    // 实例化冰块物体
+                    var obj = Instantiate(iceObj);
+                    obj.transform.SetParent(iceObj.transform.parent, false);
+                    obj.transform.localPosition = new Vector3((columIndex - GlobalDef.COLUM_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, (rowIndex - GlobalDef.ROW_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, 0);
+                }
             }
+            iceObj.SetActive(false);
         }
-        iceObj.SetActive(false);
     }
 }
