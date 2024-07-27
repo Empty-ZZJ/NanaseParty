@@ -1,5 +1,6 @@
 using Common;
 using DG.Tweening;
+using GameManager;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -23,22 +24,44 @@ namespace ScenesScripts.MiniGame.MusicGame
         public double TotalSeconds;
         public void Start ()
         {
-            for (int i = 1; i <= 7; i++)
+            try
             {
-                Foods.Add(Resources.Load<Sprite>($"Texture2D/MusicGame/food{i}"));
+                for (int i = 1; i <= 7; i++)
+                {
+                    Foods.Add(Resources.Load<Sprite>($"Texture2D/MusicGame/food{i}"));
+                }
+                Food = Resources.Load<GameObject>("GameObject/Scene/MiniGame/MusicGame/Food");
+
+                Debug.Log("节拍数：" + Beats.Count);
             }
-            Food = Resources.Load<GameObject>("GameObject/Scene/MiniGame/MusicGame/Food");
-            Beats = JsonConvert.DeserializeObject<Queue<MusicBeat>>(Resources.Load<TextAsset>("Audio/MenheraMusic/bets/bets6").text);
-            Debug.Log("节拍数：" + Beats.Count);
+            catch (Exception ex)
+            {
+                PopupManager.PopMessage("错误", ex.Message);
+                AppLogger.Log(ex.Message);
+                throw;
+            }
+
         }
         public void Button_Click_StartGame ()
         {
-            var _audioclip = Resources.Load<AudioClip>("Audio/MenheraMusic/music/music (6)");
-            AudioPlayer.clip = _audioclip;
-            AudioPlayer.Play();
-            TotalSeconds = 0;
-            StartCoroutine(CreatBreats());
-            StartCoroutine(TimeEvent());
+            if (ListItemController.SelectID == string.Empty)
+            {
+                PopupManager.PopMessage("提示", "请选择歌曲项目进行演奏。");
+                return;
+            }
+            GameObject.Find("MainCanvas/GamePanel-Mask/Panel").GetComponent<RectTransform>().DOAnchorPos3D(new Vector3(0f, -1000f, 0f), 0.5f).OnComplete(() =>
+            {
+                Destroy(GameObject.Find("MainCanvas/GamePanel-Mask"));
+                var _audioclip = Resources.Load<AudioClip>($"Audio/MenheraMusic/music/music ({ListItemController.SelectID})");
+                Beats = JsonConvert.DeserializeObject<Queue<MusicBeat>>(Resources.Load<TextAsset>($"Audio/MenheraMusic/bets/bets{ListItemController.SelectID}").text);
+                AudioPlayer.clip = _audioclip;
+                AudioPlayer.Play();
+                TotalSeconds = 0;
+                StartCoroutine(CreatBreats());
+                StartCoroutine(TimeEvent());
+
+            });
+
         }
         private IEnumerator CreatBreats ()
         {
@@ -84,6 +107,11 @@ namespace ScenesScripts.MiniGame.MusicGame
                 yield return new WaitForSeconds(1);
             }
         }
+        public void Button_Click_Close ()
+        {
+            var _ = new LoadingSceneManager<string>("Game-Lobby");
+        }
+
     }
 }
 
