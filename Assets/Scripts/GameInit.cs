@@ -8,7 +8,7 @@ public class GameInit : MonoBehaviour
         //120FPS
         Application.targetFrameRate = 120;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
+        Application.runInBackground = true;
 
     }
 }

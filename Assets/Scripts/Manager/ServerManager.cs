@@ -1,6 +1,7 @@
 using Common;
 using Common.Network;
 using Common.UI;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace GameManager
         public static class Config
         {
             public static IniConfig GameCommonConfig;
+            public static IniConfig CharacterInfo;
+            public static IniConfig Department;
         }
         public static class Audio
         {
@@ -28,9 +31,23 @@ namespace GameManager
         /// </summary>
         public static void Init ()
         {
+            var _path_CharacterInfo = $"{GameAPI.GetWritePath()}/Config/CharacterInfo.ini";
+            var _path_Department = $"{GameAPI.GetWritePath()}/Config/Department.ini";
+
+
+            if (!File.Exists(_path_CharacterInfo)) File.WriteAllText(_path_CharacterInfo, Resources.Load<TextAsset>("Config/CharacterInfo").text);
+            if (!File.Exists(_path_Department)) File.WriteAllText(_path_Department, Resources.Load<TextAsset>("Config/Department").text);
+
+
+
+
 
             //Config
             Config.GameCommonConfig = new($"{GameAPI.GetWritePath()}/Config/GameCommonConfig.ini");
+            Config.CharacterInfo = new(_path_CharacterInfo);
+            Config.Department = new(_path_Department);
+
+
             //Network
             Network.TcpClient_Game = new();
             Debug.Log("初始化完毕！");

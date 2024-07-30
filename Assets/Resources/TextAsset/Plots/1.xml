@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- -->
+<!--剧情数据，需要包含一个根节点-->
+<data>
+	<!--本章剧情标题-->
+	<title>测试章节</title>
+	<!--本章剧情简介-->
+	<Synopsis>本章节为你演示HOILAI Galgame Framework(HGF) 的功能</Synopsis>
+	<!-- 这个节点表示分支剧情在以下内容中查找，如果需要跳转到别的节点的分支，暂不支持-->
+	<BranchPlot>
+		<BranchPlotNode ID="S1">
+			<Speak CharacterID="1" Content="你跳转到了分支一"></Speak>
+		</BranchPlotNode>
+		<BranchPlotNode ID="S2">
+			<Speak CharacterID="1" Content="你跳转到了分支二"></Speak>
+			<ExitGame></ExitGame>
+		</BranchPlotNode>
+	</BranchPlot>
+	<MainPlot>
+		<!-- 添加一个角色，这个角色的ID为1 有关所有角色ID需要到相关的配置文件修改 -->
+		<AddCharacter CharacterID="1"  From="C1" SendMessage="Outside-ToLeft"></AddCharacter>
+		<!--开始发言，角色ID为1的角色发言：你好啊！！！ 同时发送消息，我需要执行入场动画：从屏幕左侧滑进-->
+		<Speak CharacterID="1" Content="你好啊!!! 我是不是从左侧进入的？"></Speak>
+		<!--分支剧情，这句话结束后会自动弹出选项-->
+		<Speak CharacterID="1" Content="这句话结束会弹出选项">
+			<!--每个Choice需要有一个JumpID ，就是点击这个之后跳转到的节点，如果不希望跳转，也就是假选项，填写-1-->
+			<Choice JumpID="S1">选项一（执行完分支剧情后自动继续）</Choice>
+			<Choice JumpID="S2">选项二（直接结束游戏）</Choice>
+		</Speak>
+		<!--分支剧情结束后自动继续游戏-->
+		<ChangeBackImg Path="D:\UserData\图片\壁纸\5552152969857735952.png"></ChangeBackImg>
+		<Speak CharacterID="1" Content="接下来我们继续"  SendMessage="ToCenter"></Speak>
+		<!--AudioPath表示语音路径，可以使资源文件夹的，也可以是外部路径，但不支持URL路径（以后或许会支持）-->
+		<Speak CharacterID="1" SendMessage="Shake" AudioPath="HYKB/1.mp3" Content="是不是为我的突然说话感到意外?"></Speak>
+		<Speak CharacterID="1" SendMessage="Shake" Content="AudioPath属性是我的语音路径哦~"></Speak>
+		<Speak CharacterID="1" Content="那么测试章节结束啦~我们下次再见吧！"></Speak>
+		<!--id为1的角色退场，发送消息ToRight ，表示从屏幕右侧滑出-->
+		<DeleteCharacter CharacterID="1" SendMessage="ToRight"></DeleteCharacter>
+	</MainPlot>
+</data>
+

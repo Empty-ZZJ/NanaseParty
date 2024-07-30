@@ -10,7 +10,8 @@ namespace ScenesScripts.Lobby
             "FocusClock" ,
             "XiaoXiaoLe",
             "DuiGaoGao",
-            "MusicGame"
+            "MusicGame",
+            "Jump"
         };
         private void Start ()
         {

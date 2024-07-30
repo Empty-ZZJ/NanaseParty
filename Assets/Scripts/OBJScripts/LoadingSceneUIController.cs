@@ -11,7 +11,7 @@ namespace OBJScripts
     public class LoadingSceneUIController : MonoBehaviour
     {
         public AsyncOperation sceneLoadingOperation;
-        private LoadingSceneUIController ()
+        private LoadingSceneUIController()
         {
 
         }
@@ -26,7 +26,7 @@ namespace OBJScripts
         [Title("加载进度条")]
         public Scrollbar LoadingProgress;
         private bool isLoading;
-        private void Start ()
+        private void Start()
         {
             if (Imgs.Count == 0)
             {
@@ -43,16 +43,16 @@ namespace OBJScripts
             LoadingIMG.sprite = _random_sprite;
 
         }
-        public void Load (string name)
+        public void Load(string name)
         {
             StartCoroutine(LoadScene(name));
 
         }
-        public void Load (int id)
+        public void Load(int id)
         {
 
         }
-        private IEnumerator LoadScene (string name)
+        private IEnumerator LoadScene(string name)
         {
             isLoading = true;
             sceneLoadingOperation = SceneManager.LoadSceneAsync(name);
@@ -61,7 +61,7 @@ namespace OBJScripts
             yield return sceneLoadingOperation;
 
         }
-        private void Update ()
+        private void Update()
         {
             if (!isLoading)
             {

@@ -2,6 +2,7 @@ using TetraCreations.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class SupperButton : Button
 {
     private static AudioClip AudioEffict_Click;
@@ -9,11 +10,12 @@ public class SupperButton : Button
     public bool Has_ClickAudio = true;
     protected override void Start ()
     {
+        base.Start();
         if (AudioEffict_Click == null)
             AudioEffict_Click = Resources.Load<AudioClip>("Audio/Effict/click");
         if (AudioPlayer == null)
-            AudioPlayer = this.gameObject.AddComponent<AudioSource>();
-        base.Start();
+            AudioPlayer = this.gameObject.GetComponent<AudioSource>();
+
     }
     protected override void DoStateTransition (SelectionState state, bool instant)
     {
