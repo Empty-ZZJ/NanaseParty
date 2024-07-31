@@ -1,5 +1,4 @@
 using Common;
-using ScenesScripts.Lobby;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,7 +112,10 @@ namespace ScenesScripts.GalPlot
             yield return null;
             try
             {
-                var _PlotText = Resources.Load<TextAsset>($"TextAsset/Plots/{PlotIStartterManager.ID}").text;
+                var _PlotText = Resources.Load<TextAsset>($"TextAsset/Plots/1").text;
+
+                //if (PlotIStartterManager.ID != string.Empty)
+                //    _PlotText = Resources.Load<TextAsset>($"TextAsset/Plots/{PlotIStartterManager.ID}").text;
 
                 Debug.Log($"游戏剧本：{_PlotText}");
                 PlotxDoc = XDocument.Parse(_PlotText);
@@ -146,7 +148,6 @@ namespace ScenesScripts.GalPlot
                                         break;
                                     }
                                 }
-
                             }
                             Gal_StartTitile.ShowTitle(PlotData.Title, Resources.Load<Sprite>($"Texture2D/Menhera/Plot/back/{PlotData.TitleImg}"));
                             break;
@@ -182,11 +183,7 @@ namespace ScenesScripts.GalPlot
             }
             catch (Exception ex)
             {
-                if (ex.Message != "无法识别的根标签")
-                {
-                    PopupManager.PopMessage("游戏加载失败！", ex.Message);
-
-                }
+                PopupManager.PopMessage("游戏加载失败！", ex.Message);
             }
 
 
@@ -235,7 +232,9 @@ namespace ScenesScripts.GalPlot
                     _.CharacterID = _CharacterId;
                     _.Affiliation = GameManager.ServerManager.Config.Department.GetValue(GameManager.ServerManager.Config.CharacterInfo.GetValue(_From, "Department"), "Name");
                     _.FromID = _From;
-                    var _CameObj = Resources.Load<GameObject>("Common/Gameobject/Galgame/Img-Character");
+                    var _CameObj = Resources.Load<GameObject>("GameObject/Scene/Gal/Img-Character");//Texture2D/Menhera/Plot/character//1.png
+                    Debug.Log($"立绘切换：" + $"Texture2D/Menhera/Plot/character/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_From, "ResourcePath")}/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_From, "Portrait-Normall")}");
+
                     _CameObj.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Texture2D/Menhera/Plot/character/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_From, "ResourcePath")}/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_From, "Portrait-Normall")}");
                     _.CharacterGameObject = Instantiate(_CameObj, Gal_CharacterImg.gameObject.transform);
 
@@ -287,12 +286,12 @@ namespace ScenesScripts.GalPlot
                     Button_Click_NextPlot();
                     break;
                 }
-                case "ChangeCharacterImg"://更换背景图片
+                case "ChangeCharacterImg":
                 {
                     var _CharacterID = PlotData.NowPlotDataNode.Attribute("CharacterID").Value;
                     var _obj = GetCharacterObjectByName(_CharacterID);
 
-                    _obj.CharacterGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Texture2D/Menhera/Plot/character/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, "ResourcePath")}/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, PlotData.NowPlotDataNode.Attribute("Path").Value)}");
+                    _obj.CharacterGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Texture2D/Menhera/Plot/character/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, "ResourcePath")}/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, PlotData.NowPlotDataNode.Attribute("Img").Value)}");
                     Button_Click_NextPlot();
                     break;
                 }
@@ -386,6 +385,10 @@ namespace ScenesScripts.GalPlot
         {
             Button_Click_NextPlot();
             TouchBack.SetActive(true);
+        }
+        public void Button_Click_ReplyPlot ()
+        {
+            PopupManager.PopMessage("提示", "当前版本暂不支持。");
         }
     }
 }

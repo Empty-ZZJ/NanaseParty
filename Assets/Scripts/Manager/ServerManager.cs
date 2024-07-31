@@ -35,8 +35,9 @@ namespace GameManager
             var _path_Department = $"{GameAPI.GetWritePath()}/Config/Department.ini";
 
 
-            if (!File.Exists(_path_CharacterInfo)) File.WriteAllText(_path_CharacterInfo, Resources.Load<TextAsset>("Config/CharacterInfo").text);
-            if (!File.Exists(_path_Department)) File.WriteAllText(_path_Department, Resources.Load<TextAsset>("Config/Department").text);
+            File.WriteAllText(_path_CharacterInfo, Resources.Load<TextAsset>("Config/CharacterInfo").text);
+            File.WriteAllText(_path_Department, Resources.Load<TextAsset>("Config/Department").text);
+
 
 
 

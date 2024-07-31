@@ -8,7 +8,7 @@ namespace ScenesScripts.GalPlot
 
         private void Start ()
         {
-            GameObject_Choice = Resources.Load<GameObject>("Common/Gameobject/Galgame/Button-Choice");
+            GameObject_Choice = Resources.Load<GameObject>("GameObject/Scene/Gal/Button-Choice");
         }
         [SerializeField]
         public void CreatNewChoice (string JumpID, string Title)

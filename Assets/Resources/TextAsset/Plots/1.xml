@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- -->
-<!--剧情数据，需要包含一个根节点-->
 <data>
-	<!--本章剧情标题-->
-	<title>测试章节</title>
-	<!--本章剧情简介-->
-	<Synopsis>本章节为你演示HOILAI Galgame Framework(HGF) 的功能</Synopsis>
-	<!-- 这个节点表示分支剧情在以下内容中查找，如果需要跳转到别的节点的分支，暂不支持-->
+
+	<title>
+		<text>初次见面</text>
+		<img>livingroom1</img>
+	</title>
+
+	<Synopsis>和胡桃初次见面，发生了......</Synopsis>
+
 	<BranchPlot>
 		<BranchPlotNode ID="S1">
-			<Speak CharacterID="1" Content="你跳转到了分支一"></Speak>
-		</BranchPlotNode>
-		<BranchPlotNode ID="S2">
-			<Speak CharacterID="1" Content="你跳转到了分支二"></Speak>
-			<ExitGame></ExitGame>
+		
 		</BranchPlotNode>
 	</BranchPlot>
 	<MainPlot>
-		<!-- 添加一个角色，这个角色的ID为1 有关所有角色ID需要到相关的配置文件修改 -->
-		<AddCharacter CharacterID="1"  From="C1" SendMessage="Outside-ToLeft"></AddCharacter>
-		<!--开始发言，角色ID为1的角色发言：你好啊！！！ 同时发送消息，我需要执行入场动画：从屏幕左侧滑进-->
-		<Speak CharacterID="1" Content="你好啊!!! 我是不是从左侧进入的？"></Speak>
+		<AddCharacter CharacterID="1"  From="C1"></AddCharacter><!--胡桃-->
+		<AddCharacter CharacterID="2"  From="C2"></AddCharacter><!--玩家-->
+		<AddCharacter CharacterID="3"  From="C3"></AddCharacter><!--旁白-->
+		
+		<Speak CharacterID="1" Content="嗨~你好"></Speak>
+		<Speak CharacterID="1" Content="我们应该是第一见面吧？"></Speak>
+		<Speak CharacterID="1" Content="我等了好久呢~"></Speak>
+		<Speak CharacterID="2" Content="你是？"></Speak>
+		<Speak CharacterID="3" Content="我看着面前的这位少女说道。"></Speak>
+		<Speak CharacterID="1" Content="我是「七濑胡桃」，从今往后，我们会一起生活一段时间。"></Speak>
+		
+		<ChangeCharacterImg CharacterID="1" Img=""></ChangeCharacterImg>
+		
+		<Speak CharacterID="1" Content="所以，这段时间，请多关照！"></Speak>
+		
+		
+		
+		
+		
 		<!--分支剧情，这句话结束后会自动弹出选项-->
 		<Speak CharacterID="1" Content="这句话结束会弹出选项">
 			<!--每个Choice需要有一个JumpID ，就是点击这个之后跳转到的节点，如果不希望跳转，也就是假选项，填写-1-->

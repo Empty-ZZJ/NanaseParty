@@ -68,7 +68,7 @@ namespace ScenesScripts.GalPlot
         public void SetText_CharacterName (string CharacterName, string CharacterIdentity)
         {
 
-            Text_CharacterName.text = $"<b>{CharacterName}</b><size=45>     <color=#F684EE>{CharacterIdentity}</color></size>";
+            Text_CharacterName.text = $"<b>{CharacterName}</b><size=45>     <color=#F55100>{CharacterIdentity}</color></size>";
         }
         /// <summary>
         /// 开始发言
