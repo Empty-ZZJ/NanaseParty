@@ -1,7 +1,6 @@
 using Common;
 using Common.Network;
 using Common.UI;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -33,18 +32,16 @@ namespace GameManager
         {
             var _path_CharacterInfo = $"{GameAPI.GetWritePath()}/Config/CharacterInfo.ini";
             var _path_Department = $"{GameAPI.GetWritePath()}/Config/Department.ini";
+            var _path_GameCommonConfig = $"{GameAPI.GetWritePath()}/Config/GameCommonConfig.ini";
 
+            var _obj_c = FileManager.CreatTextFile(_path_CharacterInfo);
+            _obj_c.Write(Resources.Load<TextAsset>("Config/CharacterInfo").text); _obj_c.Close();
 
-            File.WriteAllText(_path_CharacterInfo, Resources.Load<TextAsset>("Config/CharacterInfo").text);
-            File.WriteAllText(_path_Department, Resources.Load<TextAsset>("Config/Department").text);
-
-
-
-
-
+            var _obj_d = FileManager.CreatTextFile(_path_Department);
+            _obj_d.Write(Resources.Load<TextAsset>("Config/Department").text); _obj_d.Close();
 
             //Config
-            Config.GameCommonConfig = new($"{GameAPI.GetWritePath()}/Config/GameCommonConfig.ini");
+            Config.GameCommonConfig = new(_path_GameCommonConfig);
             Config.CharacterInfo = new(_path_CharacterInfo);
             Config.Department = new(_path_Department);
 

@@ -10,7 +10,21 @@
 
 	<BranchPlot>
 		<BranchPlotNode ID="S1">
+			<ChangeCharacterImg CharacterID="1" Img="Portrait-Fan1"></ChangeCharacterImg>
+			<Speak CharacterID="1" Content="什么鬼啊！！！！"></Speak>
+			<Speak CharacterID="1" Content="算了。"></Speak>
+			<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+			<Speak CharacterID="1" Content="我是，七濑胡桃，重新认识一下吧。怎么样怎么样，有没有想起来！"></Speak>
+			<Speak CharacterID="2" Content="胡桃啊...好像想起来了。"></Speak>
+		</BranchPlotNode>
+		<BranchPlotNode ID="S2">
+			<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+			<Speak CharacterID="1" Content="是的是的！"></Speak>
 		
+		</BranchPlotNode>
+		<BranchPlotNode ID="S3">
+			<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+			<Speak CharacterID="1" Content="我是，七濑胡桃，重新认识一下吧。"></Speak>
 		</BranchPlotNode>
 	</BranchPlot>
 	<MainPlot>
@@ -20,25 +34,75 @@
 		
 		<Speak CharacterID="1" Content="嗨~你好"></Speak>
 		<Speak CharacterID="1" Content="我们应该是第一见面吧？"></Speak>
-		<Speak CharacterID="1" Content="我等了好久呢~"></Speak>
 		<Speak CharacterID="2" Content="你是？"></Speak>
 		<Speak CharacterID="3" Content="我看着面前的这位少女说道。"></Speak>
-		<Speak CharacterID="1" Content="我是「七濑胡桃」，从今往后，我们会一起生活一段时间。"></Speak>
-		
-		<ChangeCharacterImg CharacterID="1" Img=""></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="那不重要，重要的是，从今往后，我们会一起生活一段时间。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Wave"></ChangeCharacterImg>
 		
 		<Speak CharacterID="1" Content="所以，这段时间，请多关照！"></Speak>
+		<Speak CharacterID="2" Content="不解释一下你为什么会突然空降到我家的原因吗？？？"></Speak>
 		
-		
-		
-		
-		
-		<!--分支剧情，这句话结束后会自动弹出选项-->
-		<Speak CharacterID="1" Content="这句话结束会弹出选项">
-			<!--每个Choice需要有一个JumpID ，就是点击这个之后跳转到的节点，如果不希望跳转，也就是假选项，填写-1-->
-			<Choice JumpID="S1">选项一（执行完分支剧情后自动继续）</Choice>
-			<Choice JumpID="S2">选项二（直接结束游戏）</Choice>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" SendMessage="Shake"  Content="哎呀~那不重要，重要的是，冰箱....里..还有没有零食？"></Speak>
+		<Speak CharacterID="2" Content="可能..还有一些吧...等等..你要干什么..."></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="我刚说完，这位少女已经在翻起冰箱了。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哇！！！冰箱里还有很多“过期”的食物！那我就帮你消化掉了！！！！"></Speak>
+		<Speak CharacterID="2" Content="慢着.....好吧，你的行动是真的快，所以。"></Speak>
+		<Speak CharacterID="2" Content="所以你到底是谁，解释一下吧。再不说我就要生气了。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Cry1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哎呀好了好了别生气嘛。话说你真的不记得我了吗？"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="明明我们小时候经常一起玩呢，你还记得吗？">
+			<Choice JumpID="S1">我想起来了，你是隔壁小美？</Choice>
+			<Choice JumpID="S2">我想起来了，你是胡桃？</Choice>
+			<Choice JumpID="S3">不记得了。</Choice>
 		</Speak>
+
+	
+		<Speak CharacterID="2" Content="不过话说在前面，下次可不要“偷偷”消化“过期”食物了。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Abandon1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="好吧好吧，下次还要。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Normall"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="对了，话说你还记得咱们小时候经常一起去玩的那个商场吗？"></Speak>
+		<Speak CharacterID="1" Content="据说，那里现在已经成为废墟了。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Uncomfortable"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="可那也是前段时间了，就这几天拆的哦。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Normall"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="只用了不到一天，那么大的商场就没有了。"></Speak>
+		<Speak CharacterID="2" Content="为什么会这样，是老板不想继续营业了吗？"></Speak>
+		<Speak CharacterID="1" Content="可能不是哦，拆的时候旁边围观的人好像说了什么...老板也是很倒霉之类的话。"></Speak>
+		<Speak CharacterID="2" Content="那看来是有别的原因了。"></Speak>
+		<Speak CharacterID="1" Content="可能是的，不如等有时间了我们一起去调查调查吧，好吧好吧！"></Speak>
+		<Speak CharacterID="2" Content="可以，不过得过几天了。话说回来，以后你打算怎么在这里生活？"></Speak>
+		<Speak CharacterID="1" Content="可能是的，不如等有时间了我们一起去调查调查吧，好吧好吧！"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Ok"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="这样，以后我们各司其职，你赚钱，我收拾家里。"></Speak>
+		<Speak CharacterID="2" Content="怎么听起来像..."></Speak>
+		<Speak CharacterID="1" Content="这样方便些，但你记得要把冰箱填满哦。"></Speak>
+		<Speak CharacterID="2" Content="......"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Normall"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="我想好了哦，"></Speak>
+		
+		
+		
+		
+		
+		
+		
+		
 		<!--分支剧情结束后自动继续游戏-->
 		<ChangeBackImg Path="D:\UserData\图片\壁纸\5552152969857735952.png"></ChangeBackImg>
 		<Speak CharacterID="1" Content="接下来我们继续"  SendMessage="ToCenter"></Speak>
@@ -47,6 +111,11 @@
 		<Speak CharacterID="1" SendMessage="Shake" Content="AudioPath属性是我的语音路径哦~"></Speak>
 		<Speak CharacterID="1" Content="那么测试章节结束啦~我们下次再见吧！"></Speak>
 		<!--id为1的角色退场，发送消息ToRight ，表示从屏幕右侧滑出-->
+	
+
+
+
+
 		<DeleteCharacter CharacterID="1" SendMessage="ToRight"></DeleteCharacter>
 	</MainPlot>
 </data>

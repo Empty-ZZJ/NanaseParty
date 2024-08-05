@@ -8,28 +8,23 @@ using System.Collections.Generic;
 using System.Linq;
 using TetraCreations.Attributes;
 using UnityEngine;
-using UnityEngine.UI;
 namespace ScenesScripts.MiniGame.MusicGame
 {
     public class MusicGameManager : MonoBehaviour
     {
         [Title("生成面板")]
         public Transform Panel;
-        public GameObject Left_Button;
-        public GameObject Right_Button;
         public AudioSource AudioPlayer;
         private static List<MusicBeat> Beats = new();
-        private static List<Sprite> Foods = new();
+        public GameObject GamePanel_Mask;
         private static GameObject Food;
         public double TotalSeconds;
+        public GameObject Button_Back;
         public void Start ()
         {
             try
             {
-                for (int i = 1; i <= 7; i++)
-                {
-                    Foods.Add(Resources.Load<Sprite>($"Texture2D/MusicGame/food{i}"));
-                }
+                GamePanel_Mask.SetActive(true);
                 Food = Resources.Load<GameObject>("GameObject/Scene/MiniGame/MusicGame/Food");
 
                 Debug.Log("节拍数：" + Beats.Count);
@@ -41,8 +36,9 @@ namespace ScenesScripts.MiniGame.MusicGame
                 throw;
             }
 
+
         }
-        public void Button_Click_StartGame ()
+        public void Button_Click_StartGame (string id = "1")
         {
             try
             {
@@ -53,7 +49,9 @@ namespace ScenesScripts.MiniGame.MusicGame
                 }
                 GameObject.Find("MainCanvas/GamePanel-Mask/Panel").GetComponent<RectTransform>().DOAnchorPos3D(new Vector3(0f, -1000f, 0f), 0.5f).OnComplete(() =>
                 {
-                    Destroy(GameObject.Find("MainCanvas/GamePanel-Mask"));
+                    Button_Back.SetActive(false);
+                    Beats.Clear();
+                    GamePanel_Mask.SetActive(false);
                     var _audioclip = Resources.Load<AudioClip>($"Audio/MenheraMusic/music/music ({ListItemController.SelectID})");
                     Beats = JsonConvert.DeserializeObject<List<MusicBeat>>(Resources.Load<TextAsset>($"Audio/MenheraMusic/bets/bets{ListItemController.SelectID}").text);
                     AudioPlayer.clip = _audioclip;
@@ -82,27 +80,13 @@ namespace ScenesScripts.MiniGame.MusicGame
                     var _beat = Beats.First();
                     var _time = DateTime.Now;
 
-                    if (TotalSeconds - 0.0f + 1.50f >= _beat.seconds)
+                    if (TotalSeconds - 0.0f + 1.30f >= _beat.seconds)
                     {
                         Beats.RemoveAt(0);
                         Debug.Log(_beat.seconds);
                         var _food = Instantiate(Food, Panel);
-                        _food.GetComponent<Image>().sprite = Foods[GameAPI.GetRandomInAB(0, Foods.Count - 1)];
-                        if (_beat.direction == 1)
-                        {
-                            _food.GetComponent<RectTransform>().DOMove(Left_Button.transform.position, 1.5f).OnComplete(() =>
-                            {
-                                Destroy(_food, 2f);
-                            }).SetEase(Ease.Linear);
-                        }
-                        else
-                        {
-                            _food.GetComponent<RectTransform>().DOMove(Right_Button.transform.position, 1.5f).OnComplete(() =>
-                            {
-                                Destroy(_food, 2f);
-                            }).SetEase(Ease.Linear);
-
-                        }
+                        _food.GetComponent<FoodManager>().Creat(_beat.direction);
+                        continue;
                     }
                 }
                 catch (Exception ex)
@@ -112,9 +96,17 @@ namespace ScenesScripts.MiniGame.MusicGame
                     throw;
                 }
                 yield return new WaitForSeconds(0.005f);
-
             }
 
+            while (AudioPlayer.isPlaying)
+            {
+                yield return new WaitForSeconds(0.005f);
+            }
+
+            Button_Back.SetActive(true);
+            GamePanel_Mask.SetActive(true);
+            GameObject.Find("MainCanvas/GamePanel-Mask/Panel").GetComponent<RectTransform>().DOAnchorPos3D(new Vector3(0f, 0f, 0f), 0.5f);
+            StopAllCoroutines();
         }
         private IEnumerator TimeEvent ()
         {
@@ -128,6 +120,7 @@ namespace ScenesScripts.MiniGame.MusicGame
         {
             var _ = new LoadingSceneManager<string>("Game-Lobby");
         }
+
 
     }
 }

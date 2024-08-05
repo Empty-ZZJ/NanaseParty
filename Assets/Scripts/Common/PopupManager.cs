@@ -1,5 +1,5 @@
+using DG.Tweening;
 using OBJScripts;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +7,7 @@ namespace Common
 {
     public static class PopupManager
     {
-        public static GameObject PopMessage (string title, string content, Action action = null)
+        public static GameObject PopMessage (string title, string content, TweenCallback action = null)
         {
             var _ = Resources.Load<GameObject>("GameObject/Popup/Popup_Message").GetComponent<PopupMessageControler>();
             _.Title.text = title;

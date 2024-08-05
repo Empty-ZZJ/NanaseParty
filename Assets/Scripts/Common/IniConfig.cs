@@ -33,10 +33,19 @@ namespace Common
                 try
                 {
                     iniFile = new StreamReader(iniPath);
+
                     strLine = iniFile.ReadLine();
+
                     while (strLine != null)
                     {
+                        // 忽略空行和注释行
+                        if (string.IsNullOrWhiteSpace(strLine) || strLine.StartsWith("#"))
+                        {
+                            strLine = iniFile.ReadLine();
+                            continue;
+                        }
                         strLine = strLine.Trim();
+
                         if (strLine != "")
                         {
                             if (strLine.StartsWith("[") && strLine.EndsWith("]"))

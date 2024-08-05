@@ -1,8 +1,6 @@
 using DG.Tweening;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-
 namespace OBJScripts
 {
     public class PopupMessageControler : MonoBehaviour
@@ -11,10 +9,11 @@ namespace OBJScripts
         public Text Content;
         public Button OKButton;
         public RectTransform MainPopup;
-        public Action Call;
+        public TweenCallback Call;
         public void Close ()
         {
             Call?.Invoke();
+
             MainPopup.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() =>
             {
 

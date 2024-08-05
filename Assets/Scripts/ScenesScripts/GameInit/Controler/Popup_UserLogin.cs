@@ -87,9 +87,15 @@ namespace ScenesScripts
                 Destroy(this.gameObject);
             });
         }
-
-
-
+        public void Button_Click_LoaclLogin ()
+        {
+            MainPopup.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() =>
+            {
+                Destroy(this.gameObject);
+            });
+            ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
+            ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", "Local".ToString());
+        }
     }
 
 }

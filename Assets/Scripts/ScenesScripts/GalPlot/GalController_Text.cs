@@ -108,6 +108,7 @@ namespace ScenesScripts.GalPlot
                 IsSpeak = false;
                 CallBack?.Invoke();
                 Button_Next.SetActive(true);
+                GameObject.Find("EventSystem").GetComponent<GalManager>().Gal_Voice.TextMix.Pause();
             });
             return TextAnimateEvemt;
 

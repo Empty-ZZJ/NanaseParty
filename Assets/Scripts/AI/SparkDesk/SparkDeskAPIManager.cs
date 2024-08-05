@@ -38,7 +38,13 @@ namespace AI
                         app_id = x_appid,
                         uid = GameAPI.GetRandomInAB(0, 999999).ToString(),
                     };
+                    AppLogger.Log(JsonConvert.SerializeObject(new
+                    {
+                        type = "AIChat",
+                        id = request.header.uid
+                    }));
                     request.parameter = new Parameter()
+
                     {
                         chat = new Chat()
                         {

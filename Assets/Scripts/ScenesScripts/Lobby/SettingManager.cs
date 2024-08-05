@@ -46,6 +46,11 @@ namespace ScenesScripts.Lobby
                     PageItem = Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/Setting/Conent-About"), Content);
                     break;
                 }
+                case "Sponsor":
+                {
+                    PageItem = Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/Setting/Conent-Sponsor"), Content);
+                    break;
+                }
                 default:
                 {
                     PopupManager.PopMessage("警告", "意外错误");

@@ -1,4 +1,5 @@
 using Common;
+using GameManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace ScenesScripts.GalPlot
         /// <summary>
         /// 角色发言的AudioSource
         /// </summary>
-        private AudioSource Gal_Voice;
+        public AudioSystem Gal_Voice = new();
 
         /// <summary>
         /// 当前场景角色数量
@@ -87,12 +88,25 @@ namespace ScenesScripts.GalPlot
             public string NowJumpID;
 
         }
+        public class AudioSystem
+        {
+            public AudioSource Character_Voice;
+            public AudioSource BackMix;
+            public AudioSource TextMix;
+            /// <summary>
+            /// 背景音乐Clip
+            /// </summary>
+            public List<AudioClip> BackMixsAudio = new();
+        }
+
         public static Struct_PlotData PlotData = new();
         private void Start ()
         {
-            Gal_Voice = this.gameObject.GetComponent<AudioSource>();
+
             ResetPlotData();
+            StartBackAudio();
             StartCoroutine(LoadPlot());
+
             return;
         }
         /// <summary>
@@ -252,15 +266,18 @@ namespace ScenesScripts.GalPlot
                 case "Speak":  //处理发言
                 {
                     var _nodeinfo = GetCharacterObjectByName(PlotData.NowPlotDataNode.Attribute("CharacterID").Value);
+                    Gal_Voice.TextMix.Play();
                     if (PlotData.NowPlotDataNode.Elements().Count() != 0) //有选项，因为他有子节点数目了
                     {
                         GalController_Text.IsCanJump = false;
+                        //拿出选项文本和跳转ID
                         foreach (var ClildItem in PlotData.NowPlotDataNode.Elements())
                         {
                             if (ClildItem.Name.ToString() == "Choice")
                                 PlotData.ChoiceText.Add(new Struct_Choice(ClildItem.Value, ClildItem.Attribute("JumpID").Value));
 
                         }
+                        //文字动画播放完毕后显示选项
                         Gal_Text.StartTextContent(PlotData.NowPlotDataNode.Attribute("Content").Value, _nodeinfo.Name, _nodeinfo.Affiliation, () =>
                         {
 
@@ -276,7 +293,7 @@ namespace ScenesScripts.GalPlot
                     if (PlotData.NowPlotDataNode.Attributes("SendMessage").Count() != 0)
                         SendCharMessage(_nodeinfo.CharacterID, PlotData.NowPlotDataNode.Attribute("SendMessage").Value);
                     if (PlotData.NowPlotDataNode.Attributes("AudioPath").Count() != 0)
-                        StartCoroutine(PlayAudio(Gal_Voice, PlotData.NowPlotDataNode.Attribute("AudioPath").Value));
+                        StartCoroutine(PlayAudio(Gal_Voice.Character_Voice, PlotData.NowPlotDataNode.Attribute("AudioPath").Value));
                     break;
                 }
                 case "ChangeBackImg"://更换背景图片
@@ -292,6 +309,7 @@ namespace ScenesScripts.GalPlot
                     var _obj = GetCharacterObjectByName(_CharacterID);
 
                     _obj.CharacterGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Texture2D/Menhera/Plot/character/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, "ResourcePath")}/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, PlotData.NowPlotDataNode.Attribute("Img").Value)}");
+                    Debug.Log($"Texture2D/Menhera/Plot/character/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, "ResourcePath")}/{GameManager.ServerManager.Config.CharacterInfo.GetValue(_obj.FromID, PlotData.NowPlotDataNode.Attribute("Img").Value)}");
                     Button_Click_NextPlot();
                     break;
                 }
@@ -384,11 +402,51 @@ namespace ScenesScripts.GalPlot
         public void CloseTitleAnimate_Recall ()
         {
             Button_Click_NextPlot();
+            PlayBackMixRandom();
             TouchBack.SetActive(true);
+
         }
         public void Button_Click_ReplyPlot ()
         {
             PopupManager.PopMessage("提示", "当前版本暂不支持。");
         }
+        /// <summary>
+        /// 初始化音乐系统
+        /// </summary>
+        private void StartBackAudio ()
+        {
+            Gal_Voice.Character_Voice = GameObject.Find("AudioSystem/Character_Voice").GetComponent<AudioSource>();
+            Gal_Voice.BackMix = GameObject.Find("AudioSystem/BackMix").GetComponent<AudioSource>();
+            Gal_Voice.TextMix = GameObject.Find("AudioSystem/TextMix").GetComponent<AudioSource>();
+            for (int i = 1; i <= 4; i++)
+            {
+                Gal_Voice.BackMixsAudio.Add(Resources.Load<AudioClip>($"Audio/Plot/剧情篇章_{i}"));
+            }
+
+        }
+        /// <summary>
+        /// 随机播放背景音乐
+        /// 
+        /// </summary>
+        private void PlayBackMixRandom ()
+        {
+            Gal_Voice.BackMix.clip = Gal_Voice.BackMixsAudio[GameAPI.GetRandomInAB(0, Gal_Voice.BackMixsAudio.Count - 1)];
+            Gal_Voice.BackMix.Play();
+            StartCoroutine(PlayBackMixRandom(Gal_Voice.BackMix, PlayBackMixRandom));
+        }
+        private IEnumerator PlayBackMixRandom (AudioSource AudioObject, Action action)
+        {
+            while (AudioObject.isPlaying)
+            {
+                yield return new WaitForSecondsRealtime(0.1f);//延迟零点一秒执行
+            }
+            action();
+        }
+        public void Button_Click_Close ()
+        {
+
+            var _ = new LoadingSceneManager<string>("Game-Lobby");
+        }
+
     }
 }
