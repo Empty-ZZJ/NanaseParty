@@ -1,5 +1,6 @@
 using Common;
 using GameManager;
+using ScenesScripts.Lobby;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -93,13 +94,20 @@ namespace ScenesScripts.GalPlot
             public AudioSource Character_Voice;
             public AudioSource BackMix;
             public AudioSource TextMix;
+            public class AudioInfo
+            {
+                public string name;
+                public string path;
+            }
+            public List<AudioInfo> AudioList = new();
             /// <summary>
             /// 背景音乐Clip
             /// </summary>
-            public List<AudioClip> BackMixsAudio = new();
+
         }
 
         public static Struct_PlotData PlotData = new();
+        public static List<string> PlotHistory = new();
         private void Start ()
         {
 
@@ -128,8 +136,8 @@ namespace ScenesScripts.GalPlot
             {
                 var _PlotText = Resources.Load<TextAsset>($"TextAsset/Plots/1").text;
 
-                //if (PlotIStartterManager.ID != string.Empty)
-                //    _PlotText = Resources.Load<TextAsset>($"TextAsset/Plots/{PlotIStartterManager.ID}").text;
+                if (PlotIStartterManager.ID != string.Empty)
+                    _PlotText = Resources.Load<TextAsset>($"TextAsset/Plots/{PlotIStartterManager.ID}").text;
 
                 Debug.Log($"游戏剧本：{_PlotText}");
                 PlotxDoc = XDocument.Parse(_PlotText);
@@ -187,6 +195,18 @@ namespace ScenesScripts.GalPlot
                             }
                             break;
                         }
+                        case "AudioList":
+                        {
+                            foreach (var item_name in item.Elements())
+                            {
+                                Gal_Voice.AudioList.Add(new AudioSystem.AudioInfo
+                                {
+                                    name = item_name.Value,
+                                    path = item_name.Attribute("Path").Value,
+                                });
+                            }
+                            break;
+                        }
                         default:
                         {
                             throw new Exception("无法识别的根标签");
@@ -210,6 +230,7 @@ namespace ScenesScripts.GalPlot
 
             if (PlotData.MainPlot.Count == 0)
             {
+                Button_Click_Close();
                 print("游戏结束!");
                 return;
             }
@@ -267,6 +288,8 @@ namespace ScenesScripts.GalPlot
                 {
                     var _nodeinfo = GetCharacterObjectByName(PlotData.NowPlotDataNode.Attribute("CharacterID").Value);
                     Gal_Voice.TextMix.Play();
+                    var _text = PlotData.NowPlotDataNode.Attribute("Content").Value;
+
                     if (PlotData.NowPlotDataNode.Elements().Count() != 0) //有选项，因为他有子节点数目了
                     {
                         GalController_Text.IsCanJump = false;
@@ -275,10 +298,10 @@ namespace ScenesScripts.GalPlot
                         {
                             if (ClildItem.Name.ToString() == "Choice")
                                 PlotData.ChoiceText.Add(new Struct_Choice(ClildItem.Value, ClildItem.Attribute("JumpID").Value));
-
                         }
+
                         //文字动画播放完毕后显示选项
-                        Gal_Text.StartTextContent(PlotData.NowPlotDataNode.Attribute("Content").Value, _nodeinfo.Name, _nodeinfo.Affiliation, () =>
+                        Gal_Text.StartTextContent(_text, _nodeinfo.Name, _nodeinfo.Affiliation, () =>
                         {
 
                             foreach (var ClildItem in GalManager.PlotData.ChoiceText)
@@ -287,7 +310,7 @@ namespace ScenesScripts.GalPlot
                             }
                         });
                     }
-                    else Gal_Text.StartTextContent(PlotData.NowPlotDataNode.Attribute("Content").Value, _nodeinfo.Name, _nodeinfo.Affiliation);
+                    else Gal_Text.StartTextContent(_text, _nodeinfo.Name, _nodeinfo.Affiliation);
 
                     //处理消息
                     if (PlotData.NowPlotDataNode.Attributes("SendMessage").Count() != 0)
@@ -318,6 +341,12 @@ namespace ScenesScripts.GalPlot
                     DestroyCharacterByID(PlotData.NowPlotDataNode.Attribute("CharacterID").Value);
                     break;
                 }
+                case "ChangeBackAudio":
+                {
+                    PlayBackMix(PlotData.NowPlotDataNode.Value);
+                    Button_Click_NextPlot();
+                    break;
+                }
                 case "ExitGame":
                 {
                     foreach (var item in PlotData.CharacterInfo)
@@ -337,6 +366,11 @@ namespace ScenesScripts.GalPlot
                 case "SetDialogShow":
                 {
                     Gal_Text.SetDialogHide(true);
+                    break;
+                }
+                case "Black":
+                {
+                    Instantiate(Resources.Load<GameObject>("GameObject/Scene/Gal/WaitCanvas"));
                     break;
                 }
             }
@@ -402,13 +436,9 @@ namespace ScenesScripts.GalPlot
         public void CloseTitleAnimate_Recall ()
         {
             Button_Click_NextPlot();
-            PlayBackMixRandom();
+            PlayBackMix("Normally");
             TouchBack.SetActive(true);
 
-        }
-        public void Button_Click_ReplyPlot ()
-        {
-            PopupManager.PopMessage("提示", "当前版本暂不支持。");
         }
         /// <summary>
         /// 初始化音乐系统
@@ -418,34 +448,34 @@ namespace ScenesScripts.GalPlot
             Gal_Voice.Character_Voice = GameObject.Find("AudioSystem/Character_Voice").GetComponent<AudioSource>();
             Gal_Voice.BackMix = GameObject.Find("AudioSystem/BackMix").GetComponent<AudioSource>();
             Gal_Voice.TextMix = GameObject.Find("AudioSystem/TextMix").GetComponent<AudioSource>();
-            for (int i = 1; i <= 4; i++)
-            {
-                Gal_Voice.BackMixsAudio.Add(Resources.Load<AudioClip>($"Audio/Plot/剧情篇章_{i}"));
-            }
 
         }
         /// <summary>
         /// 随机播放背景音乐
         /// 
         /// </summary>
-        private void PlayBackMixRandom ()
+        private void PlayBackMix (string name)
         {
-            Gal_Voice.BackMix.clip = Gal_Voice.BackMixsAudio[GameAPI.GetRandomInAB(0, Gal_Voice.BackMixsAudio.Count - 1)];
+            Gal_Voice.BackMix.clip = Resources.Load<AudioClip>($"Audio/Plot/{Gal_Voice.AudioList.Find(e => e.name == name).path}");
             Gal_Voice.BackMix.Play();
-            StartCoroutine(PlayBackMixRandom(Gal_Voice.BackMix, PlayBackMixRandom));
+            StartCoroutine(PlayBackMixIE(Gal_Voice.BackMix));
         }
-        private IEnumerator PlayBackMixRandom (AudioSource AudioObject, Action action)
+        private IEnumerator PlayBackMixIE (AudioSource AudioObject)
         {
             while (AudioObject.isPlaying)
             {
                 yield return new WaitForSecondsRealtime(0.1f);//延迟零点一秒执行
             }
-            action();
+            PlayBackMix("Normally");
         }
         public void Button_Click_Close ()
         {
 
             var _ = new LoadingSceneManager<string>("Game-Lobby");
+        }
+        public void Button_Click_Reply ()
+        {
+            Instantiate(Resources.Load<GameObject>("GameObject/Scene/Gal/ReplyCanvas"));
         }
 
     }

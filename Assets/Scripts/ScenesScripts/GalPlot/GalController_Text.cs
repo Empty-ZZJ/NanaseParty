@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GameManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -61,6 +62,7 @@ namespace ScenesScripts.GalPlot
         public void SetText_Content (string TextContent)
         {
             Text_TextContent.text = TextContent;
+
         }
         /// <summary>
         /// 设置发言人的名称
@@ -81,15 +83,18 @@ namespace ScenesScripts.GalPlot
         public Tweener StartTextContent (string TextContent, string CharacterName, string CharacterIdentity, UnityAction CallBack = null)
         {
             //100  60   40
+
+            TextContent = TextContent.Replace("{Name}", $"<color=#F55100>{GameDataManager.GameData.Name}</color>");
             void Alwayls ()
             {
-
                 SetText_CharacterName(CharacterName, CharacterIdentity);
 
             }
             if (IsSpeak && Text_TextContent.text.Length >= TextContent.Length * 0.75f && IsCanJump)//当前还正在发言
             {
                 //但是 ，如果当前到了总文本的三分之二，也可以下一句
+
+                GalManager.PlotHistory.Add($"<color=#F55100>{CharacterName}</color> : {TextContent}");
                 SetText_Content(TextContent);
                 IsSpeak = false;
                 TextAnimateEvemt.Kill();
@@ -98,6 +103,7 @@ namespace ScenesScripts.GalPlot
                 return TextAnimateEvemt;
             }
             else if (IsSpeak) return TextAnimateEvemt;
+            GalManager.PlotHistory.Add($"<color=#F55100>{CharacterName}</color> : {TextContent}");
             IsSpeak = true;
             SetText_Content(string.Empty);//先清空内容
             Button_Next.SetActive(false);

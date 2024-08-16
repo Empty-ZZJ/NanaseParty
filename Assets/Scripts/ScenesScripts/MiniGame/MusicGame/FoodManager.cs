@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace ScenesScripts.MiniGame.MusicGame
 {
+    [RequireComponent(typeof(AudioSource))]
     public class FoodManager : MonoBehaviour
     {
         private static List<Sprite> FoodsIMG = new();
@@ -16,9 +17,14 @@ namespace ScenesScripts.MiniGame.MusicGame
         public string Direction;
         private bool IsClick;
         private Tweener Event_AutoKill;
+        private static RectTransform CanvasRect;
+        private Vector3 ListCreate;
 
         private void Start ()
         {
+            //è¿™é‡Œç»™å®‰å¯å†™ä¼šå¥½å¾ˆå¤šï¼Œå®‰å¯å®å®â™¥
+            if (CanvasRect == null) CanvasRect = GameObject.Find("MainCanvas").GetComponent<RectTransform>();
+
             if (BoomClickEffice == null) BoomClickEffice = Resources.Load<GameObject>("GameObject/Scene/MiniGame/MusicGame/BoomClickEffice");
             if (FoodsIMG.Count == 0)
             {
@@ -28,50 +34,66 @@ namespace ScenesScripts.MiniGame.MusicGame
                 }
             }
             FoodImgObj.sprite = FoodsIMG[GameAPI.GetRandomInAB(0, FoodsIMG.Count - 1)];
-            // ÉèÖÃÊ³ÎïÍ¼Æ¬µÄRectTransformµ½ÆÁÄ»µÄËæ»úÎ»ÖÃ
+            // è®¾ç½®é£Ÿç‰©å›¾ç‰‡çš„RectTransformåˆ°å±å¹•çš„éšæœºä½ç½®
             Event_AutoKill = this.FoodImgObj.DOColor(Color.white, 2f).OnComplete(() =>
             {
-                //Õâ¸öÑÕÉ«±ä»¯Ã»ÓĞÓÃ£¬Ö»ÊÇÎªÁË0.72fÏú»Ù¡£
+                //è¿™ä¸ªé¢œè‰²å˜åŒ–æ²¡æœ‰ç”¨ï¼Œåªæ˜¯ä¸ºäº†0.72fé”€æ¯ã€‚
                 Destroy(this.gameObject);
             });
 
         }
         public void Button_Click_Xiao ()
         {
+
+
             Event_AutoKill.Kill();
             var _obj = Instantiate(BoomClickEffice, this.transform.parent);
             _obj.transform.position = this.transform.position;
-
+            MusicGameManager.Score += GameAPI.GetRandomInAB(100, 150);
             Destroy(this.gameObject);
         }
-        public void Creat (int direction)
+        public void Create (int direction)
         {
-            Direction = direction == 1 ? "×ó²à" : "ÓÒ²à";
-            // »ñÈ¡ÆÁÄ»µÄ¿í¶ÈºÍ¸ß¶È
+            if (CanvasRect == null) CanvasRect = GameObject.Find("MainCanvas").GetComponent<RectTransform>();
+            Direction = direction == 1 ? "å·¦ä¾§" : "å³ä¾§";
+            // è·å–å±å¹•çš„å®½åº¦å’Œé«˜åº¦
 
-            float screenWidth = Screen.width - 200f; // ¼õµôÎïÌå´óĞ¡
-            float screenHeight = Screen.height - 200f;
+            float screenWidth = CanvasRect.rect.width - 200;
+            float screenHeight = CanvasRect.rect.height - 200;
 
             float randomX; float randomY;
             if (direction == 1)
             {
-                // ³öÏÖÔÚ×ó²à
-                randomX = GameAPI.GetRandomInAB(0, Convert.ToInt32(screenWidth / 2));
-                randomY = GameAPI.GetRandomInAB(0, Convert.ToInt32(screenHeight));
+                // å‡ºç°åœ¨å·¦ä¾§
+                randomX = GameAPI.GetRandomInAB(-Convert.ToInt32(screenWidth / 2), 0);
+                randomY = GameAPI.GetRandomInAB(-Convert.ToInt32(screenHeight / 2), Convert.ToInt32(screenHeight / 2));
             }
             else if (direction == 2)
             {
-                // ³öÏÖÔÚÓÒ²à
-                randomX = GameAPI.GetRandomInAB(Convert.ToInt32(screenWidth / 2), Convert.ToInt32(screenWidth));
-                randomY = GameAPI.GetRandomInAB(0, Convert.ToInt32(screenHeight));
+                // å‡ºç°åœ¨å³ä¾§
+                randomX = GameAPI.GetRandomInAB(0, Convert.ToInt32(screenWidth / 2));
+                randomY = GameAPI.GetRandomInAB(-Convert.ToInt32(screenHeight / 2), Convert.ToInt32(screenHeight / 2));
             }
             else
             {
                 return;
             }
+            if (randomX <= -670 || randomY >= 169)
+            {
+                Create(direction);
+                return;
+            }
+
+
+
+            ListCreate = new Vector3(randomX, randomY, 0);
             //float objectCenterX = randomX - (this.gameObject.GetComponent<RectTransform>().rect.width / 2);
-            // ÉèÖÃFoodImgObjµÄRectTransformÎ»ÖÃ
-            this.gameObject.GetComponent<RectTransform>().position = new Vector3(randomX, randomY, 0);
+            // è®¾ç½®FoodImgObjçš„RectTransformä½ç½®
+            this.gameObject.GetComponent<RectTransform>().anchoredPosition3D = ListCreate;
         }
+
+
+
+
     }
 }

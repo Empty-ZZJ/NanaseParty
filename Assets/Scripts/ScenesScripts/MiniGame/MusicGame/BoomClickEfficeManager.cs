@@ -11,13 +11,25 @@ namespace ScenesScripts.MiniGame.MusicGame
         private static List<Sprite> circleEfficts = new();
         public Image circle;
         private int index = 0;
-        private AudioSource EffictPlayer;
-        private AudioClip Effict;
+        private static AudioClip[] Clip_Xiao;
+        public AudioSource audioSource;
         private void Start ()
         {
-            if (Effict == null) Effict = Resources.Load<AudioClip>("Audio/Effict/MusicGameClick");
-            EffictPlayer = this.gameObject.GetComponent<AudioSource>();
-            EffictPlayer.PlayOneShot(Effict);
+
+            if (Clip_Xiao == null)
+            {
+                Clip_Xiao = new AudioClip[10];
+                for (int i = 1; i <= 1; i++)
+                {
+                    Clip_Xiao[i] = Resources.Load<AudioClip>($"Audio/MiniGame/MusicGame/xiao{i}");
+                    Debug.Log($"Audio/MiniGame/MusicGame/xiao{i}");
+                }
+            }
+            if (audioSource == null) audioSource = gameObject.GetComponent<AudioSource>();
+
+            audioSource.PlayOneShot(Clip_Xiao[1]);
+
+
             if (circleEfficts.Count == 0)
             {
                 for (int i = 1; i <= 12; i++)
@@ -26,8 +38,6 @@ namespace ScenesScripts.MiniGame.MusicGame
                 }
                 Debug.Log("销毁动画数量: " + circleEfficts.Count);
             }
-
-
             StartCoroutine(StartAction());
         }
         public IEnumerator StartAction ()

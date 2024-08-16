@@ -23,6 +23,7 @@ namespace OBJScripts
 
             }
             ServerManager.Init();
+            this.gameObject.AddComponent<GameDataManager>();
         }
     }
 }

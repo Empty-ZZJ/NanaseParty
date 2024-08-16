@@ -7,118 +7,120 @@ using UnityEngine;
 using UnityEditor;
 
 #endif
-
-
-public class StringInList : PropertyAttribute
-
+namespace Common.SupperComponent
 {
 
-    public delegate string[] GetStringList ();
-
-
-
-    public StringInList (params string[] list)
+    public class StringInList : PropertyAttribute
 
     {
 
-        List = list;
-
-    }
+        public delegate string[] GetStringList ();
 
 
 
-    public StringInList (Type type, string methodName)
-
-    {
-
-        var method = type.GetMethod(methodName);
-
-        if (method != null)
+        public StringInList (params string[] list)
 
         {
 
-            List = method.Invoke(null, null) as string[];
+            List = list;
 
         }
 
-        else
+
+
+        public StringInList (Type type, string methodName)
 
         {
 
-            Debug.LogError("NO SUCH METHOD " + methodName + " FOR " + type);
+            var method = type.GetMethod(methodName);
+
+            if (method != null)
+
+            {
+
+                List = method.Invoke(null, null) as string[];
+
+            }
+
+            else
+
+            {
+
+                Debug.LogError("NO SUCH METHOD " + methodName + " FOR " + type);
+
+            }
+
+        }
+
+
+
+        public string[] List
+
+        {
+
+            get;
+
+            private set;
 
         }
 
     }
-
-
-
-    public string[] List
-
-    {
-
-        get;
-
-        private set;
-
-    }
-
-}
 
 
 
 #if UNITY_EDITOR
 
-[CustomPropertyDrawer(typeof(StringInList))]
+    [CustomPropertyDrawer(typeof(StringInList))]
 
-public class StringInListDrawer : PropertyDrawer
-
-{
-
-    // Draw the property inside the given rect
-
-    public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
+    public class StringInListDrawer : PropertyDrawer
 
     {
 
-        var stringInList = attribute as StringInList;
+        // Draw the property inside the given rect
 
-        var list = stringInList.List;
-
-        if (property.propertyType == SerializedPropertyType.String)
+        public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
 
         {
 
-            int index = Mathf.Max(0, Array.IndexOf(list, property.stringValue));
+            var stringInList = attribute as StringInList;
 
-            index = EditorGUI.Popup(position, property.displayName, index, list);
+            var list = stringInList.List;
+
+            if (property.propertyType == SerializedPropertyType.String)
+
+            {
+
+                int index = Mathf.Max(0, Array.IndexOf(list, property.stringValue));
+
+                index = EditorGUI.Popup(position, property.displayName, index, list);
 
 
 
-            property.stringValue = list[index];
+                property.stringValue = list[index];
 
-        }
+            }
 
-        else if (property.propertyType == SerializedPropertyType.Integer)
+            else if (property.propertyType == SerializedPropertyType.Integer)
 
-        {
+            {
 
-            property.intValue = EditorGUI.Popup(position, property.displayName, property.intValue, list);
+                property.intValue = EditorGUI.Popup(position, property.displayName, property.intValue, list);
 
-        }
+            }
 
-        else
+            else
 
-        {
+            {
 
-            base.OnGUI(position, property, label);
+                base.OnGUI(position, property, label);
+
+            }
 
         }
 
     }
 
-}
-
 #endif
+}
 
 

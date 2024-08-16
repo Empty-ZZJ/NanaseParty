@@ -1287,7 +1287,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 864006951}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1534613769}
+        m_TargetAssemblyTypeName: ScenesScripts.GalPlot.GalManager, Assembly-CSharp
+        m_MethodName: Button_Click_Reply
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Has_ClickAudio: 1
 --- !u!82 &864006954
 AudioSource:
@@ -1501,7 +1513,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.103149414, y: -0.23046875}
-  m_SizeDelta: {x: 2136, y: 1068}
+  m_SizeDelta: {x: 2047, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1093581042
 CanvasRenderer:
@@ -2038,7 +2050,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2136, y: 1202}
+  m_SizeDelta: {x: 2047, y: 1152}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1218022793
 MonoBehaviour:

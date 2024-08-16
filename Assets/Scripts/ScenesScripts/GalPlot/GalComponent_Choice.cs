@@ -28,13 +28,18 @@ namespace ScenesScripts.GalPlot
         public void Button_Click_JumpTo ()
         {
 
-            GalManager.PlotData.NowJumpID = _JumpID;
-            GalManager.PlotData.IsBranch = true;
-            GalController_Text.IsCanJump = true;
             if (_JumpID == "-1")
             {
-                return;
+                GalManager.PlotData.IsBranch = false;
+                GalController_Text.IsCanJump = true;
             }
+            else
+            {
+                GalManager.PlotData.NowJumpID = _JumpID;
+                GalManager.PlotData.IsBranch = true;
+                GalController_Text.IsCanJump = true;
+            }
+
             this.gameObject.transform.parent.GetComponent<GalController_Choice>().Button_Click_Choice();
             GameObject.Find("EventSystem").GetComponent<GalManager>().Button_Click_NextPlot();
 

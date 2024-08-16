@@ -21,6 +21,7 @@ namespace GameManager
             public static IniConfig CharacterInfo;
             public static IniConfig Department;
         }
+        public static GameDataManager GameData;
         public static class Audio
         {
             public static UIAudioControl AudioControl;
@@ -30,6 +31,7 @@ namespace GameManager
         /// </summary>
         public static void Init ()
         {
+
             var _path_CharacterInfo = $"{GameAPI.GetWritePath()}/Config/CharacterInfo.ini";
             var _path_Department = $"{GameAPI.GetWritePath()}/Config/Department.ini";
             var _path_GameCommonConfig = $"{GameAPI.GetWritePath()}/Config/GameCommonConfig.ini";
@@ -48,7 +50,9 @@ namespace GameManager
 
             //Network
             Network.TcpClient_Game = new();
+
             Debug.Log("初始化完毕！");
+
         }
         public static async Task LoadScene (string name)
         {

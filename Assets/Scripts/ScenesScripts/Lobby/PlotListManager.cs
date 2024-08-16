@@ -12,6 +12,14 @@ namespace ScenesScripts.Lobby
             public string description { get; set; }
             public string id { get; set; }
             public string img { get; set; }
+            /// <summary>
+            /// 奖励
+            /// </summary>
+            public XElement XE_Reward { get; set; }
+            /// <summary>
+            /// 解锁条件
+            /// </summary>
+            public XElement EnableCondition { get; set; }
 
         };
         public static List<_PlotInfo> PlotInfo = new();
@@ -29,8 +37,10 @@ namespace ScenesScripts.Lobby
                 {
                     if (p.Name == "title") _plotitem.title = p.Value;
                     if (p.Name == "description") _plotitem.description = p.Value;
-                    if (p.Name == "img") _plotitem.img = $"Texture2D/Menhera/Plot/{p.Value}";
+                    if (p.Name == "img") _plotitem.img = $"Texture2D/Menhera/Plot/mask/{p.Value}";
                     if (p.Name == "id") _plotitem.id = p.Value;
+                    if (p.Name == "reward") _plotitem.XE_Reward = p;
+                    if (p.Name == "condition") _plotitem.EnableCondition = p;
                 }
 
 
@@ -38,12 +48,14 @@ namespace ScenesScripts.Lobby
                 PlotInfo.Add(_plotitem);
 
 
-
                 var _obj = Instantiate(PlotItem, this.gameObject.transform).GetComponent<PlotItemController>();
                 _obj.PlotText.text = _plotitem.title;
                 _obj.ID = _plotitem.id;
                 _obj.PlotImg.sprite = Resources.Load<Sprite>(_plotitem.img);
                 _obj.Description = _plotitem.description;
+                _obj.XE_Reward = _plotitem.XE_Reward;
+                _obj.EnableCondition = _plotitem.EnableCondition;
+
             }
             Debug.Log($"剧情数：{PlotInfo.Count}");
 

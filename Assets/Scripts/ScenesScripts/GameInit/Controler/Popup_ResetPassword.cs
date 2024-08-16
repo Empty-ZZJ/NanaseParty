@@ -48,14 +48,14 @@ namespace ScenesScripts
             var _loading = new ShowLoading("正在加载中");
             if (_i.Equals(1))//邮箱
             {
-                _res = await NetworkHelp.Post($"{GameConst.API_URL}/Account/SendVerification_Email", new
+                _res = await NetworkHelp.Post($"{GameConst.API_URL_Account}/Account/SendVerification_Email", new
                 {
                     email = _account
                 });
             }
             else//手机号
             {
-                _res = await NetworkHelp.Post($"{GameConst.API_URL}/Account/SendVerification_Phone", new
+                _res = await NetworkHelp.Post($"{GameConst.API_URL_Account}/Account/SendVerification_Phone", new
                 {
                     phoneNo = _account
                 });
@@ -129,7 +129,7 @@ namespace ScenesScripts
                 PopupManager.PopMessage("密码不符合要求", "密码必须满足以下条件：\n 1. 长度大于5个字符 \n 2. 不能包含空白字符或特殊字符 \n 3. 必须包含至少一个字母（大小写均可）");
                 return;
             }
-            var _res = await NetworkHelp.Post($"{GameConst.API_URL}/Account/ResetPassword", new
+            var _res = await NetworkHelp.Post($"{GameConst.API_URL_Account}/Account/ResetPassword", new
             {
                 account = _account,
                 newpPassword = GameAPI.GenerateSha256(_InputField_NewPassword),

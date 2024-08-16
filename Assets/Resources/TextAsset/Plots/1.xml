@@ -6,6 +6,11 @@
 		<img>livingroom1</img>
 	</title>
 
+	<AudioList>
+		<Name Path="Normally_1">Normally</Name>
+	
+	</AudioList>
+
 	<Synopsis>和胡桃初次见面，发生了......</Synopsis>
 
 	<BranchPlot>
@@ -33,6 +38,7 @@
 		<AddCharacter CharacterID="3"  From="C3"></AddCharacter><!--旁白-->
 		
 		<Speak CharacterID="1" Content="嗨~你好"></Speak>
+	
 		<Speak CharacterID="1" Content="我们应该是第一见面吧？"></Speak>
 		<Speak CharacterID="2" Content="你是？"></Speak>
 		<Speak CharacterID="3" Content="我看着面前的这位少女说道。"></Speak>
@@ -85,7 +91,6 @@
 		<Speak CharacterID="2" Content="那看来是有别的原因了。"></Speak>
 		<Speak CharacterID="1" Content="可能是的，不如等有时间了我们一起去调查调查吧，好吧好吧！"></Speak>
 		<Speak CharacterID="2" Content="可以，不过得过几天了。话说回来，以后你打算怎么在这里生活？"></Speak>
-		<Speak CharacterID="1" Content="可能是的，不如等有时间了我们一起去调查调查吧，好吧好吧！"></Speak>
 
 		<ChangeCharacterImg CharacterID="1" Img="Portrait-Ok"></ChangeCharacterImg>
 		<Speak CharacterID="1" Content="这样，以后我们各司其职，你赚钱，我收拾家里。"></Speak>
@@ -94,29 +99,46 @@
 		<Speak CharacterID="2" Content="......"></Speak>
 
 		<ChangeCharacterImg CharacterID="1" Img="Portrait-Normall"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="我想好了哦，"></Speak>
+		<Speak CharacterID="1" Content="我想好了哦，我们这几天呢..先要好好收拾一下屋子，因为这屋子太小啦！！！"></Speak>
+		<Speak CharacterID="1" Content="先把衣柜拆掉换成一个隔间，然后用落地柜用来放衣服，多余出来的空间就可以来养宠物啦。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Happy1"></ChangeCharacterImg>
+		<Speak CharacterID="1"  SendMessage="Shake" Content="怎么样怎么样，有没有感到很心动？"></Speak>
+		<Speak CharacterID="1" Content="那我们养什么宠物好呢，是狗狗还是小猫？"></Speak>
+		<Speak CharacterID="2" Content="等过几天我们去市场上逛一圈，看到胡桃喜欢的就买来养吧。怎么样。"></Speak>
+		<Speak CharacterID="1" Content="当然好啦，听说最近新开的跳蚤市场了吗？到时候我们就去那个新开的跳蚤市场挑一挑吧！"></Speak>
+		<Speak CharacterID="2" Content="我赞成。"></Speak>
 		
-		
-		
-		
-		
-		
-		
-		
-		<!--分支剧情结束后自动继续游戏-->
-		<ChangeBackImg Path="D:\UserData\图片\壁纸\5552152969857735952.png"></ChangeBackImg>
-		<Speak CharacterID="1" Content="接下来我们继续"  SendMessage="ToCenter"></Speak>
-		<!--AudioPath表示语音路径，可以使资源文件夹的，也可以是外部路径，但不支持URL路径（以后或许会支持）-->
-		<Speak CharacterID="1" SendMessage="Shake" AudioPath="HYKB/1.mp3" Content="是不是为我的突然说话感到意外?"></Speak>
-		<Speak CharacterID="1" SendMessage="Shake" Content="AudioPath属性是我的语音路径哦~"></Speak>
-		<Speak CharacterID="1" Content="那么测试章节结束啦~我们下次再见吧！"></Speak>
-		<!--id为1的角色退场，发送消息ToRight ，表示从屏幕右侧滑出-->
+		<Black></Black>
 	
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Love2"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="除了要开一个隔间，养宠物，还要好好布置一下家里！比如，把已经没用的物体全都丢掉。"></Speak>
+		<Speak CharacterID="1" Content="还要养一些花草！最好把家里的小院好好整理一下，这样我们就可以种一些蔬菜水果，等到成熟的时候就可以做菜和吃水果了。"></Speak>
+		<Speak CharacterID="1" Content="然后然后，还要买一台新电视，最好是能玩游戏的那种，这样就可以不用再去电玩城随时随地在家玩游戏了！"></Speak>
+		<Speak CharacterID="2" Content="好多....我晕了....这看来还不是一个三两天就能搞定的事情呀"></Speak>
 
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Cry1"></ChangeCharacterImg>
+		<Speak CharacterID="1"  SendMessage="Shake" Content="那是当然，我可是要在这里长时间生活的，当然一切都要好好布置，这样才能舒适一些。"></Speak>
+		<Speak CharacterID="1"   Content="顺便也能找回一些我们童年的回忆哦。"></Speak>
 
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Chew"></ChangeCharacterImg>
+		<Speak CharacterID="1"   Content="既然说到这些，那我们不妨明天先去跳蚤市场添置一些新家具，如何?"></Speak>
+		<Speak CharacterID="2" Content="可以呀，那我们明天就出发，现在也不早了，先休息吧！"></Speak>
 
-
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Bye"></ChangeCharacterImg>
+		<Speak CharacterID="1"   Content="嗯呢，那晚安咯。"></Speak>
 		<DeleteCharacter CharacterID="1" SendMessage="ToRight"></DeleteCharacter>
+
+		<Speak CharacterID="3"   Content="夜幕降下，我和胡桃准备晚安了，那么，明天见。"></Speak>
+		
+		
+		
+		<!--<Speak CharacterID="1" SendMessage="Shake" AudioPath="HYKB/1.mp3" Content="是不是为我的突然说话感到意外?"></Speak>-->
+
+
+
+
+		
 	</MainPlot>
 </data>
 

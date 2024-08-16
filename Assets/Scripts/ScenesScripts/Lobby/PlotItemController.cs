@@ -1,3 +1,7 @@
+using Common;
+using GameManager;
+using System.Linq;
+using System.Xml.Linq;
 using TetraCreations.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +17,77 @@ namespace ScenesScripts.Lobby
         public Image PlotImg;
         public Text PlotText;
         public string Description;
-        private GameObject PlotInfo;
+        private static GameObject PlotInfo;
+        /// <summary>
+        /// 该剧情是否解锁
+        /// </summary>
+        public bool IsEnable = true;
+        /// <summary>
+        /// 奖励
+        /// </summary>
+        public XElement XE_Reward;
+        /// <summary>
+        /// 解锁条件
+        /// </summary>
+        public XElement EnableCondition;
+        /// <summary>
 
         private void Start ()
         {
-            PlotInfo = Resources.Load<GameObject>("GameObject/Scene/UIMain/Plot/PlotInfoCanvas");
+            foreach (var item in EnableCondition.Elements())
+            {
+                /*
+                if (Application.isEditor)
+                {
+                    Debug.Log($"无条件解锁：{PlotText.text}");
+                    break;
+                }*/
+                if (EnableCondition.Elements().Count() == 0)
+                {
+                    Debug.Log($"无条件解锁：{PlotText.text}");
+                    break;
+                }
+                if (item.Name == "plot")//前置剧情
+                {
+
+
+
+
+
+                    var _ = GameDataManager.GameData.PlotData.Find(e => e.id == item.Value);
+                    if (_ == null)
+                    {
+                        IsEnable = false;
+                        continue;
+                    }
+                    if (_.isDone != true)
+                    {
+                        IsEnable = false;
+                        continue;
+                    }
+                }
+                if (item.Name == "love")//好感度条件
+                {
+
+                    float.TryParse(item.Value, out var _condition);
+                    if (_condition >= GameDataManager.GameData.LoveLevel)//不满足条件
+                    {
+                        IsEnable = false;
+                    }
+                }
+
+            }
+            if (!IsEnable)//不满足解锁条件
+            {
+                PlotImg.sprite = Resources.Load<Sprite>("Texture2D/Gal/lock");
+                PlotText.text += "(未解锁)";
+
+            }
+
+
+            if (PlotInfo == null)
+                PlotInfo = Resources.Load<GameObject>("GameObject/Scene/UIMain/Plot/PlotInfoCanvas");
+
         }
         private void Update ()
         {
@@ -25,10 +95,16 @@ namespace ScenesScripts.Lobby
         }
         public void Button_Click_Select ()
         {
+            if (!IsEnable)
+            {
+                PopupManager.PopMessage("提示", "不满足解锁条件。");
+                return;
+            }
             var _data = Instantiate(PlotInfo).GetComponent<PlotIStartterManager>();
             _data.Title.text = PlotText.text;
             _data.Description.text = PlotText.text;
             _data.PlotImg.sprite = PlotImg.sprite;
+            PlotIStartterManager.ID = ID;
 
         }
     }

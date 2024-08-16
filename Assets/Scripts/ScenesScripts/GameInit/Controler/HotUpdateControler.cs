@@ -14,11 +14,13 @@ namespace ScenesScripts
         public Text Text_Info;
         public Text Text_GameVer;
         public GameObject Popup;
+        public Text UpdateContent;
         public GameObject View_Content;
         private async void Start ()
         {
+            PopupManager.PopMessage("提示", "本版本为测试包，仅供花濑内部测试使用，测试包体号：0541。可能存在内容不完整的情况，请联系工号：00001A。");
             Slider.value = 0;
-            Text_Info.text = "正在检查更新....";
+            UpdateContent.text = "正在检查更新....";
             try
             {
                 var _res = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "gameVersion" }));
@@ -28,19 +30,25 @@ namespace ScenesScripts
                 {
                     Popup.SetActive(true);
                     Text_GameVer.text = $"检测到新版本：<color=#FF6400>{_res["info"]}</color>";
-                    View_Content.GetComponentInChildren<Text>().text = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "updateContent" }))["info"].ToString();
-                    View_Content.GetComponent<RectTransform>().sizeDelta = View_Content.GetComponentInChildren<RectTransform>().sizeDelta;
-                    View_Content.GetComponentInChildren<RectTransform>().anchoredPosition3D = new Vector3(0, -View_Content.GetComponentInChildren<RectTransform>().sizeDelta.y / 2 + 10, 0);
+                    UpdateContent.text = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "updateContent" }))["info"].ToString();
+                    if (UpdateContent.text == string.Empty) Text_Info.text = "获取更新内容失败。";
                     return;
                 }
                 Slider.value = 100;
-
             }
             catch (Exception ex)
             {
                 PopupManager.PopMessage("错误", $"致命错误：{ex.Message}");
             }
         }
+        private void Update ()
+        {
+            View_Content.GetComponent<RectTransform>().sizeDelta = new Vector2(View_Content.GetComponent<RectTransform>().sizeDelta.x, UpdateContent.GetComponent<RectTransform>().sizeDelta.y);
+            UpdateContent.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, 0, 0);
+
+            //
+        }
+
         public void Close ()
         {
             Destroy(this.gameObject);
@@ -52,11 +60,14 @@ namespace ScenesScripts
             var _obj_game = Instantiate(Resources.Load<GameObject>("GameObject/Scene/InitGame/StartGame"), GameObject.Find("Canvas").transform);
             try
             {
-                Application.OpenURL(JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "downloadURL" }))["info"].ToString());
+                var _downloadUrl = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "downloadURL" }))["info"].ToString();
+
+                Application.OpenURL(_downloadUrl);
+
             }
             catch (Exception ex)
             {
-
+                AppLogger.Log(ex.Message + this.name, "error");
             }
         }
 

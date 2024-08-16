@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+
+	<title>
+		<text>跳蚤市场奇遇记</text>
+		<img>livingroom1</img>
+	</title>
+
+	<AudioList>
+		<Name Path="Normally_1">Normally</Name>
+	</AudioList>
+
+	<Synopsis>商场老板的人生，似乎充满了不平凡。人生而平凡，生而伟大。</Synopsis>
+
+	<BranchPlot>
+		<BranchPlotNode ID="S1">
+			<Speak CharacterID="1" Content="不知道，可能是第六感。"></Speak>
+		</BranchPlotNode>
+	</BranchPlot>
+	<MainPlot>
+		<AddCharacter CharacterID="1"  From="C1"></AddCharacter><!--胡桃-->
+		<AddCharacter CharacterID="2"  From="C2"></AddCharacter><!--玩家-->
+		<AddCharacter CharacterID="3"  From="C3"></AddCharacter><!--旁白-->
+		
+		<Speak CharacterID="1" Content="哎呀，商场的家具都好贵呢，我们去跳蚤市场吧，说不定能淘到宝贝哟！"></Speak>
+		<Speak CharacterID="2" Content="可是跳蚤市场的东西质量能好吗？"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="放心啦，肯定有好东西的，而且还便宜，多有意思呀。"></Speak>
+		<Speak CharacterID="2" Content="好吧，那就听你的，去跳蚤市场看看。"></Speak>
+		
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<ChangeBackImg Path="tiaozaoMarket"></ChangeBackImg>
+		<Speak CharacterID="3" Content="{Name}和胡桃来到了跳蚤市场，这里人来人往，热闹非凡。胡桃兴奋地左顾右盼。"></Speak>
+		
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哇，这里好多东西呀，感觉好好玩。"></Speak>
+		<Speak CharacterID="2" Content="是呀，不过我们得仔细挑挑。"></Speak>
+		<Speak CharacterID="1" Content="嗯嗯，我们先看看沙发吧。"></Speak>
+		
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="{Name}和胡桃来到一个摊位前，看到一个样式还算不错的旧沙发。胡桃一屁股坐上去。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哇，这个还挺舒服的呢！"></Speak>
+		
+		<Speak CharacterID="3" Content="摊主：“小姑娘，这沙发质量可好了，才卖 500 块。”"></Speak>
+		
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Sad"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="500 块呀，有点贵呢。"></Speak>
+		<Speak CharacterID="1" Content="这沙发，虽然是二手的，但也还不错呀，坐着很舒服呢。"></Speak>
+		<Speak CharacterID="2" Content="这样也挺好呀，能找到性价比高的东西。"></Speak>
+		<Speak CharacterID="1" Content="是呀，不过有时候还是会觉得有点无奈呢，就像我们现在只能在这跳蚤市场淘货，而有些人根本不需要考虑这些，直接就能去商场挑选最好的。"></Speak>
+		<Speak CharacterID="2" Content="别这么想，我们也有我们的快乐和满足呀。"></Speak>
+		<Speak CharacterID="1" Content="嗯嗯，我知道啦，可还是会有些感慨啦。你看周围这些人，大家不都是在努力寻找适合自己的东西嘛，不管是新的还是旧的。"></Speak>
+		<Speak CharacterID="2" Content="这也是生活的一种方式。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="那我们继续看看吧，说不定还能发现更有意思的东西。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="胡桃起身，又开始在各个摊位间穿梭，眼睛里依然闪烁着好奇的光芒，而{Name}则跟在她身后，两人继续着他们的跳蚤市场之旅。"></Speak>
+		<Black></Black>
+		<Speak CharacterID="3" Content="胡桃和{Name}继续在跳蚤市场中闲逛着。胡桃一路上叽叽喳喳地和{Name}说着各种有趣的发现。"></Speak>
+		
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" SendMessage="Shake-Y-Once" Content="你看这个小桌子，虽然旧了点，但是样式好别致。"></Speak>
+		<Speak CharacterID="2" Content="（看了看）确实挺好看的，不过实用性怎么样呢？"></Speak>
+		<Speak CharacterID="1"  Content="（围着转了两圈）应该还不错啦，摆在家里可以放放东西什么的。"></Speak>
+		<Speak CharacterID="3" Content="正说着，胡桃突然在一个角落里发现了一幅画。她轻轻拿起画，仔细端详起来。画面有些泛黄，但依然能看出画工的精细。"></Speak>
+
+		<Speak CharacterID="1" SendMessage="Shake-Y-Once" Content="你快来看这幅画，感觉好有年代感呀。"></Speak>
+		<Speak CharacterID="2" Content="嗯，看起来是挺特别的。"></Speak>
+		<Speak CharacterID="3" Content="摊主：“小姑娘，这幅画可是个宝贝哟，是从一个老房子里收来的。”"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Salute1"></ChangeCharacterImg>
+		<Speak CharacterID="1"  Content="有点贵呀，能不能便宜点？"></Speak>
+		<Speak CharacterID="3" Content="摊主摇了摇头：“不能再少啦，这画很有价值的。”"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Abandon1"></ChangeCharacterImg>
+
+		<Speak CharacterID="1"  Content="老板，你这画都破了好几个地方呢，便宜一点吧！"></Speak>
+		<Speak CharacterID="3"  Content="摊主：看你们俩这么小，300块拿走吧！"></Speak>
+		<Speak CharacterID="1"  Content="我考虑考虑......好吧，那我们要了。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1"  Content="我感觉我们捡到宝了，这幅画肯定不一般。"></Speak>
+		<Speak CharacterID="2" Content="哈哈哈，难道你还指望能卖出个好价钱么(*/ω＼*)"></Speak>
+
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="{Name}和胡桃继续往前走，胡桃突然看到不远处有一个摊位上摆着一些旧书。她兴奋地跑过去，一本本地翻看着。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哇，这些书都好老呀，你快来看看。"></Speak>
+		<Speak CharacterID="2" Content="确实挺有年代感的。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="胡桃拿起一本诗集，轻轻地翻开。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="你看，这是我喜欢的那本《小埋穿越到异时空》耶。价格也合适，老板，我要了！"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="胡桃又挑几本自己喜欢的书，和{Name}一起离开了那个摊位。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="今天的收获真不小呀，有沙发、桌子、画和书。"></Speak>
+		<Speak CharacterID="2" Content="是呀，我们可以回家好好布置一下了。"></Speak>
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="当他们快要走出跳蚤市场的时候，胡桃突然听到旁边有人在谈论一个花瓶。"></Speak>
+		<Speak CharacterID="3" Content="“听说那花瓶被人买走了，花了好高的价钱呢。”一个人说道。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哇哦，看来跳蚤市场也有宝藏呢！看来有些人也是喜欢跳蚤市场淘宝的快乐呢。"></Speak>
+		<Speak CharacterID="2" Content="我们也很快乐呀，这些都是我们用心挑选出来的。"></Speak>
+		
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="带着慢慢的收获,{Name}和胡桃离开了跳蚤市场。"></Speak>
+		<Black></Black>
+		<ChangeBackImg Path="livingroom1"></ChangeBackImg>
+		<Speak CharacterID="3" Content="胡桃和{Name}带着从跳蚤市场淘来的宝贝回到了新家。胡桃兴致勃勃地开始摆弄起这些东西，她先把画挂在了客厅的墙上，那泛黄的画面瞬间让整个房间增添了几分复古的气息。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Support"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="你看，这画一挂起来感觉就是不一样。">
+			<Choice JumpID="-1">多了一分艺术的氛围。</Choice>
+			<Choice JumpID="-1">多了一分生气。</Choice>
+		</Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="接着，胡桃又把小桌子放在了窗边，还在上面摆上了那几本从跳蚤市场淘来的旧书。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Support"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="你看这样是不是很温馨？"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="胡桃和{Name}开始组装沙发，经过一番努力，沙发也安置好了。胡桃一下子扑到沙发上，惬意地伸了个懒腰。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Sleep2"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="今天可真累呀，但也很开心。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="虽然经历了一些波折，但我们的生活真的越来越好了呢。"></Speak>
+		<DeleteCharacter CharacterID="1"></DeleteCharacter>
+	</MainPlot>
+</data>
+

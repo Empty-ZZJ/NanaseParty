@@ -1,3 +1,4 @@
+using GameManager;
 using UnityEngine;
 
 namespace Common
@@ -27,5 +28,9 @@ namespace Common
             Instantiate(gameObject, Transform_InstantiateObj_SameLevel.transform.parent.transform);
         }
 
+        public void LoadScene (string sceneName)
+        {
+            var _ = new LoadingSceneManager<string>(sceneName);
+        }
     }
 }

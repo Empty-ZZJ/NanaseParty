@@ -1,3 +1,4 @@
+using Common.SupperComponent;
 using UnityEngine;
 using UnityEngine.UI;
 namespace OBJScripts
@@ -7,16 +8,16 @@ namespace OBJScripts
         private SupperButton ThisButton;
         public static string id = "Button_Setting";
         private Color HighColor = new(97 / 255f, 112 / 255f, 170 / 255f, 1f);
-        private void Start()
+        private void Start ()
         {
             ThisButton = this.gameObject.GetComponent<SupperButton>();
 
         }
-        public void Button_Click()
+        public void Button_Click ()
         {
             id = this.gameObject.name;
         }
-        private void Update()
+        private void Update ()
         {
 
             if (id == this.gameObject.name)

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+
+	<title>
+		<text>商场老板的30岁</text>
+		<img>livingroom1</img>
+	</title>
+
+	<AudioList>
+		<Name Path="Normally_1">Normally</Name>
+	</AudioList>
+
+	<Synopsis>商场老板的人生，似乎充满了不平凡。人生而平凡，生而伟大。</Synopsis>
+
+	<BranchPlot>
+		<BranchPlotNode ID="S1">
+			<Speak CharacterID="1" Content="不知道，可能是第六感。"></Speak>
+		</BranchPlotNode>
+		<BranchPlotNode ID="S2">
+			<Speak CharacterID="1" Content="诶？你也有吗？"></Speak>
+		</BranchPlotNode>
+		<BranchPlotNode ID="S3">
+			<Speak CharacterID="1" Content="这...能搜的到吗，我觉得还是找路人更靠谱些吧。"></Speak>
+		</BranchPlotNode>
+	</BranchPlot>
+	<MainPlot>
+		<AddCharacter CharacterID="1"  From="C1"></AddCharacter><!--胡桃-->
+		<AddCharacter CharacterID="2"  From="C2"></AddCharacter><!--玩家-->
+		<AddCharacter CharacterID="3"  From="C3"></AddCharacter><!--旁白-->
+		
+		
+		<Speak CharacterID="1" Content="所以，你好不好奇，就是为什么那个商场会这么倒闭呢？"></Speak>
+		<Speak CharacterID="2" Content="当然好奇了，那我们？要不去调查一番？"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		
+		<Speak CharacterID="3" Content="说着，{Name}和胡桃开始准备出发。"></Speak>
+		<Speak CharacterID="3" Content="商场究竟发生了什么呢....."></Speak>
+		<Black></Black>
+		
+		<ChangeBackImg Path="traincarriage"></ChangeBackImg>
+		<Speak CharacterID="3" Content="{Name}和胡桃选择了乘坐电车。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="我总是有一种不好的预感哦，总感觉会牵扯出一些不好的事情来。">
+			<Choice JumpID="S1">这感觉从何而来？</Choice>
+			<Choice JumpID="S2">我也有这种感觉。</Choice>
+		</Speak>
+		<Speak CharacterID="1" Content="你知道吗？女生的第六感是最准确的....也许一切都要等我们到了实地，眼见为实，才知道真相吧。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+
+		<Speak CharacterID="3" Content="一路上，胡桃没有再说什么。"></Speak>
+		<Black></Black>
+		<Speak CharacterID="3" Content="电车很快，国家自从大力发展有轨电车进市区以来，哪怕是在这小城市也有了有轨电车。"></Speak>
+		<Speak CharacterID="3" Content="不过，确实能便利人们的出行。"></Speak>
+		<Speak CharacterID="3" Content="突然，胡桃似乎看到了什么。"></Speak>
+		<Speak CharacterID="3" Content="目光看去，只见一个身着庄重的男士手里包着一个黑色的盒子。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="（小声）{Name}...你看...那是什么？"></Speak>
+
+
+		<Speak CharacterID="3" Content="{Name}瞥了一眼，只能看到一个黑盒子，但是具体盒子里面装的是什么，没人知道。"></Speak>
+		<Speak CharacterID="2" Content="我只能看出来是一个黑盒子，但是具体是什么我也不清楚，可能是不想让别人知道吧，所以用黑盒子装。"></Speak>
+		<Speak CharacterID="1" Content="要不要去问问？..我这该死的好奇心。"></Speak>
+		<Speak CharacterID="2" Content="还是别了吧，我猜他也是不想让别人知道的。"></Speak>
+		<Speak CharacterID="1" SendMessage="Shake-Y-Once" Content="可是....（叮咚）"></Speak>
+
+	
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="车到站了，走走走，先去商场。"></Speak>
+		<Black></Black>
+
+		<ChangeBackImg Path="yoyogipark_gate_day"></ChangeBackImg>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Pain"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="还要多远啊，从电车下来已经走了快半个小时了..这个破电车为什么不能直达啊。"></Speak>
+		<Speak CharacterID="2" Content="加油，导航显示，还有不到 3 里的路程。马上就到了。"></Speak>
+		<Speak CharacterID="1" Content="不是，还有3里阿...真的累死了啊＞﹏＜"></Speak>
+
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="应该快到了吧，你看那个废墟是不是？"></Speak>
+		<Speak CharacterID="3" Content="说着，{Name}和胡桃大步走到了废墟旁。"></Speak>
+		
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<ChangeBackImg Path="collapsedMall"></ChangeBackImg>
+		<Speak CharacterID="1" Content="应该就是这里吧？快看！"></Speak>
+		<Speak CharacterID="3" Content="只见这里尘土漫天，整栋大楼已经爆破的差不多了。"></Speak>
+		<Speak CharacterID="3" Content="工人：“3...2...1...起爆！......完美！”"></Speak>
+		<Speak CharacterID="3" Content="随着旁边工人的爆破，整栋大楼也渐渐在爆炸声中渐渐减少着自己的领地。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="这么看来是的，应该就是这里！"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="不过...我们应该去哪找老板呢？">
+			<Choice JumpID="-1">找路人打听一下。</Choice>
+			<Choice JumpID="S3">上网搜寻一下老板现在的住址。</Choice>
+		</Speak>
+		<Speak CharacterID="1" Content="我觉得可以哦，你看那里就有一个老奶奶，要不去问问？"></Speak>
+		<Speak CharacterID="3" Content="说着，胡桃已经动身了。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<AddCharacter CharacterID="4"  From="C5" SendMessage="Outside-ToRight"></AddCharacter>
+		<!--路人-->
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
+		
+	
+	</MainPlot>
+</data>
+

@@ -50,7 +50,7 @@ namespace ScenesScripts
                 password = GameAPI.GenerateSha256(_password),
             };
             Debug.Log(JsonConvert.SerializeObject(_params));
-            var _res = await NetworkHelp.Post($"{GameConst.API_URL}/Account/Register", _params);
+            var _res = await NetworkHelp.Post($"{GameConst.API_URL_Account}/Account/Register", _params);
             _loading.KillLoading();
             //_res为返回的json
             Debug.Log(_res);
@@ -64,11 +64,16 @@ namespace ScenesScripts
                     return;
                 }
                 //注册成功
-                PopupManager.PopMessage("恭喜！", "恭喜您成为七濑排队的一员！", () => { Button_Click_Close(); });
+                PopupManager.PopMessage("恭喜！", "恭喜您成为七濑排队的一员！");
                 var _uid = _json["UID"].ToString();
                 var _token = _json["token"].ToString();
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _uid);
+
+
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _token);
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "LoginType", "account");
+                Button_Click_Close();
             }
             catch (System.Exception ex)
             {

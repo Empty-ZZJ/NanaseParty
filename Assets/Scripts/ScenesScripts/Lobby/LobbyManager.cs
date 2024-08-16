@@ -1,22 +1,58 @@
-using Common;
-using Common.UI;
 using GameManager;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using TetraCreations.Attributes;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 namespace ScenesScripts.Lobby
 {
     public class LobbyManager : MonoBehaviour
     {
 
-        public async void Button_Click_StartRandomGames ()
-        {
-            var _loading_circle = new ShowLoading("正在等待...");
-            await Task.Delay(1000);
-            var _name = GameCanvasManager.GameNames[GameAPI.GetRandomInAB(0, GameCanvasManager.GameNames.Count - 1)];
-            Debug.Log(_name);
+        [Title("好感度进度标签")]
+        public Text Text_LoveProgress;
 
-            var _loading = new LoadingSceneManager<string>(_name);
+        [Title("用户名")]
+        public Text Text_UserName;
+
+        [Title("好感度滑条")]
+        public Slider Slider_Love;
+
+        [Title("金钱标签")]
+        public TextMeshProUGUI Text_Money;
+
+        [Title("管理器_场景摄像机")]
+        public LobbyCamerManager C_LobbyCamerManager;
+        private void Update ()
+        {
+            //GameManager.ServerManager.Config.GameCommonConfig();
+
+
         }
+        private void FixedUpdate ()
+        {
+            Text_Money.text = GameDataManager.GameData.Money.ToString();
+            Slider_Love.value = GameDataManager.GameData.LoveLevel;
+            Text_LoveProgress.text = $"{GameDataManager.GameData.LoveLevel * 100}/100";
+            Text_UserName.text = GameDataManager.GameData.Name;
+        }
+        private async void Start ()
+        {
+            var _path = $"{Application.persistentDataPath}/gameData.json";
+            if (!File.Exists(_path))
+            {
+                Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/NameSetCanvas")); return;
+            }
+
+            if (JsonConvert.DeserializeObject<JObject>(await File.ReadAllTextAsync(_path))["Name"].ToString() == string.Empty)
+            {
+                Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/NameSetCanvas"));
+            }
+        }
+
+
     }
 
 }

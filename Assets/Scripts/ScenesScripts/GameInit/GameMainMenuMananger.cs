@@ -10,9 +10,10 @@ namespace ScenesScripts
         {
             ThisCanvas = this.gameObject.GetComponent<Transform>();
             Invoke(nameof(CheckHotUpdate), 2f);
+            DontDestroyOnLoad(GameObject.Find("FPSCanvas"));
         }
 
-        private async void CheckHotUpdate ()
+        private void CheckHotUpdate ()
         {
 
             Instantiate(Resources.Load<GameObject>("GameObject/Scene/InitGame/HotUpdate"), ThisCanvas).GetComponent<HotUpdateControler>();

@@ -38,7 +38,7 @@ namespace ScenesScripts
                 password = GameAPI.GenerateSha256(_password)
             };
             Debug.Log(JsonConvert.SerializeObject(_params));
-            var _res = await NetworkHelp.Post($"{GameConst.API_URL}/Account/Login", _params);
+            var _res = await NetworkHelp.Post($"{GameConst.API_URL_Account}/Account/Login", _params);
             _loading.KillLoading();
             //_res为返回的json
             Debug.Log(_res);
@@ -54,9 +54,15 @@ namespace ScenesScripts
 
                 //config
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
+                var token = _json_data["token"].ToString();
+
+
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _json_data["UID"].ToString());
-                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _json_data["token"].ToString());
+
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", token);
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", _json_data["Type"].ToString());
+                ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "LoginType", "account");
+
                 Button_Click_Close();
             }
             catch (Exception ex)
@@ -95,6 +101,7 @@ namespace ScenesScripts
             });
             ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
             ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", "Local".ToString());
+            ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "LoginType", "local");
         }
     }
 

@@ -1,7 +1,7 @@
 using Common;
+using Common.SupperComponent;
 using DG.Tweening;
 using TetraCreations.Attributes;
-
 using UnityEngine;
 using UnityEngine.UI;
 
