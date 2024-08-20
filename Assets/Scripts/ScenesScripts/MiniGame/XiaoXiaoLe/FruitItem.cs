@@ -57,7 +57,7 @@ namespace ScenesScripts.MiniGame.XiaoXiaoLe
             if (null != fruitSpriteObj) return;
             this.fruitType = fruitType;
             fruitSpriteObj = Instantiate(prefab);
-            fruitSpriteObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) * GlobalDef.CELL_SIZE;
+            fruitSpriteObj.transform.localScale = new Vector3(GlobalDef.CELL_SIZE, GlobalDef.CELL_SIZE, GlobalDef.CELL_SIZE);
             fruitSpriteObj.transform.SetParent(m_selfTransform, false);
         }
 

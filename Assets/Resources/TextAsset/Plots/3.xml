@@ -2,109 +2,150 @@
 <data>
 
 	<title>
-		<text>商场老板的30岁</text>
+		<text>跳蚤市场的新发现</text>
 		<img>livingroom1</img>
 	</title>
 
 	<AudioList>
 		<Name Path="Normally_1">Normally</Name>
+		<Name Path="Other_ForrestGumpSuite">WarRead</Name>
+		
 	</AudioList>
 
-	<Synopsis>商场老板的人生，似乎充满了不平凡。人生而平凡，生而伟大。</Synopsis>
+	<Synopsis>胡桃似乎在跳蚤市场又有了些新发现。</Synopsis>
 
 	<BranchPlot>
 		<BranchPlotNode ID="S1">
-			<Speak CharacterID="1" Content="不知道，可能是第六感。"></Speak>
-		</BranchPlotNode>
-		<BranchPlotNode ID="S2">
-			<Speak CharacterID="1" Content="诶？你也有吗？"></Speak>
-		</BranchPlotNode>
-		<BranchPlotNode ID="S3">
-			<Speak CharacterID="1" Content="这...能搜的到吗，我觉得还是找路人更靠谱些吧。"></Speak>
+			
 		</BranchPlotNode>
 	</BranchPlot>
 	<MainPlot>
 		<AddCharacter CharacterID="1"  From="C1"></AddCharacter><!--胡桃-->
 		<AddCharacter CharacterID="2"  From="C2"></AddCharacter><!--玩家-->
 		<AddCharacter CharacterID="3"  From="C3"></AddCharacter><!--旁白-->
-		
-		
-		<Speak CharacterID="1" Content="所以，你好不好奇，就是为什么那个商场会这么倒闭呢？"></Speak>
-		<Speak CharacterID="2" Content="当然好奇了，那我们？要不去调查一番？"></Speak>
 		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
-		
-		<Speak CharacterID="3" Content="说着，{Name}和胡桃开始准备出发。"></Speak>
-		<Speak CharacterID="3" Content="商场究竟发生了什么呢....."></Speak>
-		<Black></Black>
-		
-		<ChangeBackImg Path="traincarriage"></ChangeBackImg>
-		<Speak CharacterID="3" Content="{Name}和胡桃选择了乘坐电车。"></Speak>
+		<Speak CharacterID="3" Content="日子在平淡又温馨中缓缓流逝，胡桃又想起了跳蚤市场。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Bye2"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="还想着上次我们去跳蚤市场嘛！有好多有意思的东西呢，我们再去一遍吧！"></Speak>
+		<Speak CharacterID="1" Content="你想啊，那里有那么多好玩的东西，我猜还有许多没发现的有趣事情呢！"></Speak>
 
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="要是我们 捡漏 了什么宝物，在卖个好价钱...嘿嘿...想想就兴奋。"></Speak>
+		<Speak CharacterID="2" Content="你只是在家闲不下去了吧。"></Speak>
+		<Speak CharacterID="1" Content="诶呀不管了，快出发吧，要是有人在我们之前把宝物提前买走就不好啦。"></Speak>
+		<Black></Black>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<ChangeBackImg Path="tiaozaoMarket"></ChangeBackImg>
+		<Speak CharacterID="3" Content="{Name}和胡桃又回到了这个市场。"></Speak>
+		<Speak CharacterID="3" Content="胡桃如同一只欢快的小鸟，在各个摊位间穿梭着。突然，她在一个角落里发现了一个精美的八音盒。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="哇，你快看这个八音盒！"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="{Name}走了过去，仔细打量着八音盒，上面的雕刻十分精细，轻轻转动发条，清脆的音乐声响起。（♫~♪~♪）"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="这个八音盒真不错。所以，一定是一个宝物!"></Speak>
+		<Speak CharacterID="3" Content="王店长：诶呀，没想到能在这里碰到你们！"></Speak>
+		<Speak CharacterID="3" Content="王店长：怎么，看上这个八音盒了？我跟你讲啊，这个可是个价值连城的好东西。"></Speak>
+		
+		
+		<Speak CharacterID="3" Content="王店长：这是我在翻仓库的时候翻出来的，我记得是祖上传下来的，估计能 一盒顶一城“！"></Speak>
+		<Speak CharacterID="3" Content="王店长：旁边的这位？"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Abandon"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="{Name}是我的好朋友。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="王店长：诶呀诶呀，只是看你们两个很般配了，话说回来，喜欢这个八音盒吧？"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Abandon1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="喜欢是喜欢，但是你都说了是祖上传下来的，还能 一盒顶一城“，估计也不会很便宜吧。"></Speak>
+		<Speak CharacterID="3" Content="王店长：这样，你说个数，价格合适就卖给你了！"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Happy1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="那我真的说了，那就...100元吧！"></Speak>
+		<Speak CharacterID="3" Content="王店长：成交，这就给您包起来...您慢走！"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Black></Black>
+		<Speak CharacterID="3" Content="{Name}和胡桃逛了逛，很快胡桃被一个摊位上的一个精致的怀表吸引住了。她拿起来仔细端详，怀表的外壳有着精美的雕花，打开后，里面的指针依然在走动。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="{Name}，你看这个怀表，太漂亮了。感觉有着特别的故事呢。"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="这时一个路过的老人注意到了胡桃手中的怀表，眼中闪过一丝异样的光芒。"></Speak>
+
+		<AddCharacter CharacterID="4"  From="C3"></AddCharacter>
+	
+		<Speak CharacterID="3" Content="老人：“这个怀表……“"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="怎么了，这个怀表有什么问题吗？"></Speak>
+		<Speak CharacterID="3" Content="老人：“这个怀表曾经是我一位曾经的战友的，没想到在这里看到了。  "></Speak>
+		<Speak CharacterID="1" Content="那真是太巧了，看来这怀表和您真的很有缘分。"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+		<Speak CharacterID="3" Content="老人：是啊，可能这就是命运的安排吧。想不想知道这个怀表的来历？"></Speak>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="想！"></Speak>
+
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
+
+		<ChangeBackAudio>WarRead</ChangeBackAudio>
+		<Speak CharacterID="3" Content="老人：那就说来话长啦....还记得那是抗战日期。"></Speak>
+		<Speak CharacterID="3" Content="老人：我的战友名叫 大顺“，据他所说他的父亲给他起这个名字是希望他这辈子都能顺顺利利。"></Speak>
+		<Speak CharacterID="3" Content="我们是 亲 兄弟，从小玩到大。什么上山打猎，下水摸鱼，什么滚铁环，摸瞎子，打陀螺，抓子儿....都是我们喜欢的游戏。"></Speak>
+		<Speak CharacterID="3" Content="后来，我们一点点的都在长大，那时候我们也就十四五岁，还都是个小孩子哟。"></Speak>
+		<Speak CharacterID="3" Content="我们最喜欢的，就是在田野里奔跑。歌唱着 万里长城万里长，长城外面是故乡.....  的歌谣。"></Speak>
+		<Speak CharacterID="3" Content="那年，我们正好18岁。结束的不只是我们的童年。"></Speak>
+		<Speak CharacterID="3" Content="敌人打进了村子，我们两个入了伍，成了年轻党员。"></Speak>
+		<Speak CharacterID="3" Content="他成了一名战士，而我成为了一名通讯员。"></Speak>
+		<Speak CharacterID="3" Content="我还记得他拿枪的样子，记得他上阵杀敌的样子。"></Speak>
+		<Speak CharacterID="3" Content="那天，他跟着部队在一个山沟沟做伏击。按照之前计划好的安排，敌人会经过那个山沟，到时候他们就会突然袭击。"></Speak>
+		<Speak CharacterID="3" Content="他和我说，一定会成功的回来。我在大部队等着他的凯旋归来的消息。"></Speak>
+		<Speak CharacterID="3" Content="可是，出了意外。我们的计划没有预料到敌人并不会从那个山沟直接经过。"></Speak>
+		<Speak CharacterID="3" Content="他们说，敌人快要经过那里的时候，不知道出于什么原因，却突然绕过了我们精心布置的伏击圈。"></Speak>
+		<Speak CharacterID="3" Content="大顺所在的小队措手不及，却陷入了敌人的包围之中。"></Speak>
+		<Speak CharacterID="3" Content="不得已，小队开始反包围战。"></Speak>
+		<Speak CharacterID="3" Content="尽管敌人强大，这场仗还是打赢了，但小队却也损失惨重。"></Speak>
+		<Speak CharacterID="3" Content="当我和援军赶到的时候，小队所剩无几。我看到大顺躺在血泊中。"></Speak>
+		<Speak CharacterID="3" Content="那一刻，我大脑一片空白。"></Speak>
+		<Speak CharacterID="3" Content="我发疯了似的冲向大顺。大顺在生命弥留之际，只是把这块怀表从口袋里拿了出来。"></Speak>
+		<Speak CharacterID="3" Content="对我说 保管...好..它....能保你...顺顺利利.....“"></Speak>
+		<Speak CharacterID="3" Content="万里...长城..万里长.....长...城..外面..是...故乡.....高粱肥...大豆...香...."></Speak>
+		<Speak CharacterID="3" Content="没了声音。"></Speak>
+		<Speak CharacterID="3" Content="后来啊，在另一场战场中，我一个人隐藏在一个村子里面。"></Speak>
+		<Speak CharacterID="3" Content="一次我去外出传递消息，回来的时候，村子一片寂静。我大感不妙。"></Speak>
+		<Speak CharacterID="3" Content="等待我的是遍地的尸体。我看到我一直借宿的那户人家的小孩被敌人残忍的杀害。"></Speak>
+		<Speak CharacterID="3" Content="我把怀表放到了他的手心里。轻轻对他说：“祝你来生顺顺利利，没有战乱。“"></Speak>
+		<Speak CharacterID="3" Content="万里长城万里长.....长城外面是故乡....."></Speak>
+		<Black></Black>
+		<ChangeCharacterImg CharacterID="1" Img="Portrait-Cry1"></ChangeCharacterImg>
+		<Speak CharacterID="1" Content="原来这块怀表的意义这么重大的么。呜...{Name}你觉得呢？">
+			<Choice JumpID="-1">愿天下不再有战乱。</Choice>
+			<Choice JumpID="-1">愿天下太平。</Choice>
+		</Speak>
+		 
+		
+		<Speak CharacterID="1" Content="是啊，如果这世上再也不存在战乱就好了...可是....."></Speak>
+		<Speak CharacterID="3" Content="摊主：这块怀表原来历史这么与众不同吗？"></Speak>
+		<Speak CharacterID="3" Content="摊主：是啊..如果天下没有战乱就好了..那样的话也不会有人在为此失去生命。“"></Speak>
+		<Speak CharacterID="3" Content="他们本可以自由的在田野里奔跑，放声歌唱。"></Speak>
+		<Speak CharacterID="3" Content="摊主：唉....这块怀表是无价的，不应被售卖。“"></Speak>
+		<Speak CharacterID="3" Content="摊主：我决定，将这块怀表‘物归原主。’ “"></Speak>
+		<Speak CharacterID="3" Content="老人：谢谢，不过我更想将这块怀表送给这二位年轻人。“"></Speak>
+		<Speak CharacterID="3" Content="老人：现在年轻人生活压力大，很多人究其一生也买不起一个落脚的家。“"></Speak>
 		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="我总是有一种不好的预感哦，总感觉会牵扯出一些不好的事情来。">
-			<Choice JumpID="S1">这感觉从何而来？</Choice>
-			<Choice JumpID="S2">我也有这种感觉。</Choice>
-		</Speak>
-		<Speak CharacterID="1" Content="你知道吗？女生的第六感是最准确的....也许一切都要等我们到了实地，眼见为实，才知道真相吧。"></Speak>
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
-
-		<Speak CharacterID="3" Content="一路上，胡桃没有再说什么。"></Speak>
-		<Black></Black>
-		<Speak CharacterID="3" Content="电车很快，国家自从大力发展有轨电车进市区以来，哪怕是在这小城市也有了有轨电车。"></Speak>
-		<Speak CharacterID="3" Content="不过，确实能便利人们的出行。"></Speak>
-		<Speak CharacterID="3" Content="突然，胡桃似乎看到了什么。"></Speak>
-		<Speak CharacterID="3" Content="目光看去，只见一个身着庄重的男士手里包着一个黑色的盒子。"></Speak>
-
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="（小声）{Name}...你看...那是什么？"></Speak>
-
-
-		<Speak CharacterID="3" Content="{Name}瞥了一眼，只能看到一个黑盒子，但是具体盒子里面装的是什么，没人知道。"></Speak>
-		<Speak CharacterID="2" Content="我只能看出来是一个黑盒子，但是具体是什么我也不清楚，可能是不想让别人知道吧，所以用黑盒子装。"></Speak>
-		<Speak CharacterID="1" Content="要不要去问问？..我这该死的好奇心。"></Speak>
-		<Speak CharacterID="2" Content="还是别了吧，我猜他也是不想让别人知道的。"></Speak>
-		<Speak CharacterID="1" SendMessage="Shake-Y-Once" Content="可是....（叮咚）"></Speak>
-
-	
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="车到站了，走走走，先去商场。"></Speak>
-		<Black></Black>
-
-		<ChangeBackImg Path="yoyogipark_gate_day"></ChangeBackImg>
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Pain"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="还要多远啊，从电车下来已经走了快半个小时了..这个破电车为什么不能直达啊。"></Speak>
-		<Speak CharacterID="2" Content="加油，导航显示，还有不到 3 里的路程。马上就到了。"></Speak>
-		<Speak CharacterID="1" Content="不是，还有3里阿...真的累死了啊＞﹏＜"></Speak>
-
-		<Black></Black>
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="应该快到了吧，你看那个废墟是不是？"></Speak>
-		<Speak CharacterID="3" Content="说着，{Name}和胡桃大步走到了废墟旁。"></Speak>
+		<Speak CharacterID="1" Content="给我们...？可是这块怀表对您来说意义应该更重大吧？"></Speak>
+		<Speak CharacterID="3" Content="老人：（挥挥手）不 "></Speak>
 		
-		<Black></Black>
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
-		<ChangeBackImg Path="collapsedMall"></ChangeBackImg>
-		<Speak CharacterID="1" Content="应该就是这里吧？快看！"></Speak>
-		<Speak CharacterID="3" Content="只见这里尘土漫天，整栋大楼已经爆破的差不多了。"></Speak>
-		<Speak CharacterID="3" Content="工人：“3...2...1...起爆！......完美！”"></Speak>
-		<Speak CharacterID="3" Content="随着旁边工人的爆破，整栋大楼也渐渐在爆炸声中渐渐减少着自己的领地。"></Speak>
-
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Conscientious"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="这么看来是的，应该就是这里！"></Speak>
-
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
-		<Speak CharacterID="1" Content="不过...我们应该去哪找老板呢？">
-			<Choice JumpID="-1">找路人打听一下。</Choice>
-			<Choice JumpID="S3">上网搜寻一下老板现在的住址。</Choice>
-		</Speak>
-		<Speak CharacterID="1" Content="我觉得可以哦，你看那里就有一个老奶奶，要不去问问？"></Speak>
-		<Speak CharacterID="3" Content="说着，胡桃已经动身了。"></Speak>
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-NULL"></ChangeCharacterImg>
-		<AddCharacter CharacterID="4"  From="C5" SendMessage="Outside-ToRight"></AddCharacter>
-		<!--路人-->
-		<ChangeCharacterImg CharacterID="1" Img="Portrait-Doubt1"></ChangeCharacterImg>
 		
-	
+		
+		
+		
+
+
+
+
+		<DeleteCharacter CharacterID="1"></DeleteCharacter>
 	</MainPlot>
 </data>
 

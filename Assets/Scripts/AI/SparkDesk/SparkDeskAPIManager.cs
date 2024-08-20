@@ -107,7 +107,7 @@ namespace AI
                                 {
 
                                     int totalTokens = (int)jsonObj["payload"]["usage"]["text"]["total_tokens"];
-                                    return $"整体返回结果： {resp}";
+                                    return resp;
                                     //Console.WriteLine($"本次消耗token数： {totalTokens}");
 
                                 }

@@ -87,6 +87,10 @@ namespace ScenesScripts.GalPlot
             /// </summary>
             public bool IsBranch = false;
             public string NowJumpID;
+            /// <summary>
+            /// 奖励
+            /// </summary>
+            public XElement XE_Reward = null;
 
         }
         public class AudioSystem
@@ -230,9 +234,31 @@ namespace ScenesScripts.GalPlot
 
             if (PlotData.MainPlot.Count == 0)
             {
-                Button_Click_Close();
+                if (GameDataManager.GameData.PlotData.Find(e => e.id == PlotIStartterManager.ID) is null)
+                {
+                    GameDataManager.GameData.PlotData.Add(new GameDataManager.Model_PlotSatus
+                    {
+                        id = PlotIStartterManager.ID,
+                        isDone = true
+                    });
+                    if (PlotData.XE_Reward != null)
+                    {
+                        foreach (var item in PlotData.XE_Reward.Elements())
+                        {
+                            if (item.Name == "love")
+                            {
+                                float.TryParse(item.Value, out float love_value);
+                                GameDataManager.GameData.LoveLevel += love_value;
+                                Debug.Log($"增加好感度：{love_value}");
+                                Debug.Log($"现行好感度：{GameDataManager.GameData.LoveLevel}");
+                            }
+                        }
+                    }
+                }
                 print("游戏结束!");
+                Button_Click_Close();
                 return;
+
             }
 
             //IsCanJump这里有问题，如果一直点击会为false，而不是说true，这是因为没有点击按钮 ，没有添加按钮
@@ -467,6 +493,11 @@ namespace ScenesScripts.GalPlot
                 yield return new WaitForSecondsRealtime(0.1f);//延迟零点一秒执行
             }
             PlayBackMix("Normally");
+        }
+        [Button(nameof(Button_Click_Skip), "跳过")]
+        public void Button_Click_Skip ()
+        {
+            PlotData.MainPlot.TryDequeue(out PlotData.NowPlotDataNode);//队列出队+内联 出一个temp节点
         }
         public void Button_Click_Close ()
         {

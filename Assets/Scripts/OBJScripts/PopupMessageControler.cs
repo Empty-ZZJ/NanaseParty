@@ -14,7 +14,7 @@ namespace OBJScripts
         {
             Call?.Invoke();
 
-            MainPopup.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() =>
+            MainPopup.DOScale(Vector3.zero, 0.25f).OnComplete(() =>
             {
 
                 Destroy(this.gameObject);
@@ -24,7 +24,7 @@ namespace OBJScripts
         }
         public void Close_Parent ()
         {
-            MainPopup.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() =>
+            MainPopup.DOScale(Vector3.zero, 0.25f).OnComplete(() =>
             {
                 Destroy(this.gameObject.transform.parent.gameObject);
             });

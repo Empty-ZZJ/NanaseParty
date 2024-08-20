@@ -18,7 +18,7 @@ namespace ScenesScripts
         public GameObject View_Content;
         private async void Start ()
         {
-            PopupManager.PopMessage("提示", "本版本为测试包，仅供花濑内部测试使用，测试包体号：0541。可能存在内容不完整的情况，请联系工号：00001A。");
+            //  PopupManager.PopMessage("提示", "本版本为测试包，仅供花濑内部测试使用，测试包体号：。可能存在内容不完整的情况，请联系工号：00001A。");
             Slider.value = 0;
             UpdateContent.text = "正在检查更新....";
             try
@@ -60,9 +60,12 @@ namespace ScenesScripts
             var _obj_game = Instantiate(Resources.Load<GameObject>("GameObject/Scene/InitGame/StartGame"), GameObject.Find("Canvas").transform);
             try
             {
-                var _downloadUrl = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "downloadURL" }))["info"].ToString();
 
-                Application.OpenURL(_downloadUrl);
+                if (Application.isMobilePlatform)
+
+                    Application.OpenURL(JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "downloadURL_Android" }))["info"].ToString());
+                else
+                    Application.OpenURL(JsonConvert.DeserializeObject<JObject>(await NetworkHelp.GetAsync($"{GameConst.API_URL}/info/GetInfo", new { content = "downloadURL_Windows" }))["info"].ToString());
 
             }
             catch (Exception ex)

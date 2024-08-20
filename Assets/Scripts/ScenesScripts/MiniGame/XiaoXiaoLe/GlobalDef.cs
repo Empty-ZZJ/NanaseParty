@@ -13,6 +13,6 @@
         /// <summary>
         /// 每个格子大小
         /// </summary>
-        public const float CELL_SIZE = 1f;
+        public const float CELL_SIZE = 0.9f;
     }
 }

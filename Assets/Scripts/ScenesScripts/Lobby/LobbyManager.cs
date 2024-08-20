@@ -1,3 +1,4 @@
+using Common;
 using GameManager;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,11 +26,10 @@ namespace ScenesScripts.Lobby
 
         [Title("管理器_场景摄像机")]
         public LobbyCamerManager C_LobbyCamerManager;
+
         private void Update ()
         {
-            //GameManager.ServerManager.Config.GameCommonConfig();
-
-
+            //GameManager.ServerManager.Config.GameCommonConfig(); 
         }
         private void FixedUpdate ()
         {
@@ -51,6 +51,21 @@ namespace ScenesScripts.Lobby
                 Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/NameSetCanvas"));
             }
         }
+        public void Button_Click_AIChat ()
+        {
+            Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/AI/AIChatCanvas"));
+            GameObject.Find("Main Camera").GetComponent<LobbyCamerManager>().ToScene("Start");
+
+        }
+        public void Button_Click_Pet ()
+        {
+            GameObject.Find("Main Camera").GetComponent<LobbyCamerManager>().ToScene("ToPet");
+        }
+        public void Button_Click_None ()
+        {
+            PopupManager.PopMessage("信息", "该功能当前版本暂未开放，请等待后续更新！");
+        }
+
 
 
     }

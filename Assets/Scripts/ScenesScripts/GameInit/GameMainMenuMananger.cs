@@ -10,7 +10,7 @@ namespace ScenesScripts
         {
             ThisCanvas = this.gameObject.GetComponent<Transform>();
             Invoke(nameof(CheckHotUpdate), 2f);
-            DontDestroyOnLoad(GameObject.Find("FPSCanvas"));
+
         }
 
         private void CheckHotUpdate ()

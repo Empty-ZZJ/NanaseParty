@@ -55,10 +55,7 @@ namespace ScenesScripts
                 //config
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");
                 var token = _json_data["token"].ToString();
-
-
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _json_data["UID"].ToString());
-
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", token);
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Type", _json_data["Type"].ToString());
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "LoginType", "account");

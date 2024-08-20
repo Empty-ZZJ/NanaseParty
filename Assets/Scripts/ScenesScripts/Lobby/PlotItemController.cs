@@ -1,5 +1,7 @@
 using Common;
 using GameManager;
+using Newtonsoft.Json;
+using ScenesScripts.GalPlot;
 using System.Linq;
 using System.Xml.Linq;
 using TetraCreations.Attributes;
@@ -36,12 +38,6 @@ namespace ScenesScripts.Lobby
         {
             foreach (var item in EnableCondition.Elements())
             {
-                /*
-                if (Application.isEditor)
-                {
-                    Debug.Log($"无条件解锁：{PlotText.text}");
-                    break;
-                }*/
                 if (EnableCondition.Elements().Count() == 0)
                 {
                     Debug.Log($"无条件解锁：{PlotText.text}");
@@ -49,13 +45,14 @@ namespace ScenesScripts.Lobby
                 }
                 if (item.Name == "plot")//前置剧情
                 {
-
-
-
-
+                    if (GameDataManager.GameData.PlotData is null)
+                    {
+                        IsEnable = false;
+                        continue;
+                    }
 
                     var _ = GameDataManager.GameData.PlotData.Find(e => e.id == item.Value);
-                    if (_ == null)
+                    if (_ is null)
                     {
                         IsEnable = false;
                         continue;
@@ -102,9 +99,12 @@ namespace ScenesScripts.Lobby
             }
             var _data = Instantiate(PlotInfo).GetComponent<PlotIStartterManager>();
             _data.Title.text = PlotText.text;
-            _data.Description.text = PlotText.text;
+            _data.Description.text = Description;
             _data.PlotImg.sprite = PlotImg.sprite;
             PlotIStartterManager.ID = ID;
+            GalManager.PlotData.XE_Reward = XE_Reward;
+            Debug.Log(JsonConvert.SerializeObject(XE_Reward));
+
 
         }
     }

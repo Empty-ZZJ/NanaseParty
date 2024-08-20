@@ -1,4 +1,5 @@
 using Common;
+using Common.Network;
 using Common.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -6,8 +7,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 namespace GameManager
@@ -52,27 +55,110 @@ namespace GameManager
         private static ShowLoading Loading;
         public async void Awake ()
         {
-            Path = $"{Application.persistentDataPath}/gameData.json";
-            if (File.Exists(Path))
+            try
             {
-                var _data_json = await File.ReadAllTextAsync(Path);
-                var _data = JsonConvert.DeserializeObject<Model_UserInfo>(_data_json);
-                GameData = _data;
+                Path = $"{Application.persistentDataPath}/gameData.json";
+                if (File.Exists(Path))
+                {
+                    var _data_json = await File.ReadAllTextAsync(Path);
+                    var _data = JsonConvert.DeserializeObject<Model_UserInfo>(_data_json);
+                    if ((GameManager.ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "LoginType") == "account" && GameManager.ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsLogin") == "True"))
+                    {
+                        var _server_json = JsonConvert.DeserializeObject<JObject>(await GetServerData());
+
+                        if (_server_json["status"].ToString() == "success")
+                        {
+                            var _server_data = JsonConvert.DeserializeObject<Model_UserInfo>(_server_json["value"].ToString());
+
+                            if (_server_data.DataTime > DateTime.Now)//服务器数据较新
+                                GameData = _server_data;
+                            else GameData = _data;
+                        }
+                        else
+                        {
+                            throw new Exception("服务器异常");
+                        }
+                    }
+                    else
+                    {
+                        //未登录或者本地登录
+                        GameData = _data;
+                    }
+                }
+                else
+                {
+                    var _data = await GetServerData();
+                    if (JsonConvert.DeserializeObject<JObject>(_data)["status"].ToString() == "success")
+                    {
+                        GameData = JsonConvert.DeserializeObject<Model_UserInfo>(JsonConvert.DeserializeObject<JObject>(_data)["value"].ToString());
+                        PopupManager.PopMessage("同步成功", "成功同步数据。");
+                    }
+                    else
+                    {
+                        if ((GameManager.ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "LoginType") == "account" && GameManager.ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsLogin") == "True"))
+                        {
+                            //已经登录
+                            throw new Exception("服务器异常");
+                        }
+                        GameData = new();
+                    }
+                }
             }
-            StartCoroutine(SynchronizationData());
-            Loading = new ShowLoading();
-            Loading.SetActive(false);
+            catch (Exception ex)
+            {
+                PopupManager.PopMessage("错误", $"加载数据错误，请截屏发送至客服。将使用本地数据。错误信息:{ex.Message}");
+            }
+            finally
+            {
+                StartCoroutine(SynchronizationData());//同步数据轮询
+                Loading = new ShowLoading();
+                Loading.SetActive(false);
+            }
+        }
+        public async Task<string> GetServerData ()
+        {
+            return await NetworkHelp.Post($"{GameConst.API_URL}/player/GetUserData",
+                              new
+                              {
+                                  token = ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "Token"),
+                                  key = "GameUserJsonData"
+                              });
         }
 
         public static void SaveData ()
         {
-            GameData.DataTime = DateTime.UtcNow;
+            RemoveDuplicatePlots();
+            GameData.DataTime = DateTime.Now;
             JsonGameData = JsonConvert.SerializeObject(GameData);
             Debug.Log(JsonGameData);
             var _file = FileManager.CreatTextFile(Path);
             _file.Write(JsonGameData);
             _file.Dispose();
+        }
+        /// <summary>
+        /// 数组去重
+        /// </summary>
+        /// <returns></returns>
+        public static void RemoveDuplicatePlots ()
+        {
+            var uniquePlotDataById = new Dictionary<string, Model_PlotSatus>();
 
+            foreach (var plot in GameData.PlotData)
+            {
+                if (!uniquePlotDataById.ContainsKey(plot.id))
+                {
+                    uniquePlotDataById[plot.id] = plot;
+                }
+                else
+                {
+                    if (plot.isDone == true)
+                    {
+                        uniquePlotDataById[plot.id] = plot;
+                    }
+                }
+            }
+
+            GameData.PlotData = uniquePlotDataById.Values.ToList();
         }
         private IEnumerator SynchronizationData ()
         {
