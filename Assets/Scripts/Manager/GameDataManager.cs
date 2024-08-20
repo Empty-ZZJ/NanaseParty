@@ -58,30 +58,35 @@ namespace GameManager
             try
             {
                 Path = $"{Application.persistentDataPath}/gameData.json";
-                if (File.Exists(Path))
+                if (File.Exists(Path))//如果本地已经有数据了
                 {
                     var _data_json = await File.ReadAllTextAsync(Path);
                     var _data = JsonConvert.DeserializeObject<Model_UserInfo>(_data_json);
                     if ((GameManager.ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "LoginType") == "account" && GameManager.ServerManager.Config.GameCommonConfig.GetValue("UserInfo", "IsLogin") == "True"))
                     {
+                        //本地有数据，并且已经登录
+
+                        //先从服务器拿到数据，但先不同步
                         var _server_json = JsonConvert.DeserializeObject<JObject>(await GetServerData());
 
                         if (_server_json["status"].ToString() == "success")
                         {
                             var _server_data = JsonConvert.DeserializeObject<Model_UserInfo>(_server_json["value"].ToString());
 
-                            if (_server_data.DataTime > DateTime.Now)//服务器数据较新
+                            //如果服务器上的数据比本地的要时间要晚，
+                            if (_server_data != null && _server_data.DataTime > DateTime.UtcNow)
                                 GameData = _server_data;
                             else GameData = _data;
                         }
                         else
                         {
-                            throw new Exception("服务器异常");
+                            throw new Exception("服务器异常，API返回值非success。");
                         }
                     }
                     else
                     {
                         //未登录或者本地登录
+                        //使用本地数据
                         GameData = _data;
                     }
                 }
@@ -128,7 +133,7 @@ namespace GameManager
         public static void SaveData ()
         {
             RemoveDuplicatePlots();
-            GameData.DataTime = DateTime.Now;
+            GameData.DataTime = DateTime.UtcNow;
             JsonGameData = JsonConvert.SerializeObject(GameData);
             Debug.Log(JsonGameData);
             var _file = FileManager.CreatTextFile(Path);

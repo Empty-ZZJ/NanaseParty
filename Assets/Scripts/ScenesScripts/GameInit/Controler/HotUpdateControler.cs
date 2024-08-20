@@ -34,7 +34,8 @@ namespace ScenesScripts
                     if (UpdateContent.text == string.Empty) Text_Info.text = "获取更新内容失败。";
                     return;
                 }
-                Slider.value = 100;
+
+                Slider.value = 100; Close();
             }
             catch (Exception ex)
             {

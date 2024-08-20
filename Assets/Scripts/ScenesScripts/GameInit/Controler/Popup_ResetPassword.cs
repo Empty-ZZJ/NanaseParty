@@ -4,6 +4,7 @@ using Common.UI;
 using DG.Tweening;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -64,15 +65,18 @@ namespace ScenesScripts
             Debug.Log(_res);
             try
             {
-                JsonConvert.DeserializeObject<JObject>(_res)["token"].ToString();
+                if (JsonConvert.DeserializeObject<JObject>(_res)["success"].ToString() == "success")
+                {
+                    StartCoroutine(CountDownFunction());
+                    IsVerification = true;
+                }
+                else throw new Exception("返回了非success值。");
 
-                StartCoroutine(CountDownFunction());
-                IsVerification = true;
 
             }
-            catch
+            catch (Exception ex)
             {
-                PopupManager.PopMessage("错误", "验证码发送失败！");
+                PopupManager.PopMessage("错误", $"验证码发送失败！{ex.Message}");
                 return;
             }
         }
@@ -132,10 +136,11 @@ namespace ScenesScripts
             var _res = await NetworkHelp.Post($"{GameConst.API_URL_Account}/Account/ResetPassword", new
             {
                 account = _account,
-                newpPassword = GameAPI.GenerateSha256(_InputField_NewPassword),
+                newPassword = GameAPI.GenerateSha256(_InputField_NewPassword),
                 verification = _Verification
             });
-            if (!JsonConvert.DeserializeObject<JObject>(_res)["status"].Equals("true"))
+            Debug.Log(_res);
+            if (JsonConvert.DeserializeObject<JObject>(_res)["status"].ToString() != "success")
             {
                 PopupManager.PopMessage("重置失败", " 验证码不正确！");
                 return;

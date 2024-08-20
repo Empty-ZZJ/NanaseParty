@@ -58,17 +58,16 @@ namespace ScenesScripts
             {
                 //检查是否正确
                 var _json = JsonConvert.DeserializeObject<JObject>(_res);
-                if (_json["token"].ToString().Length != 32)
+                if (_json["status"].ToString() != "success")
                 {
                     PopupManager.PopMessage("错误", "注册失败！");
-                    return;
+                    throw new System.Exception("返回了非success值。");
                 }
                 //注册成功
                 PopupManager.PopMessage("恭喜！", "恭喜您成为七濑排队的一员！");
                 var _uid = _json["UID"].ToString();
                 var _token = _json["token"].ToString();
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "UID", _uid);
-
 
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "Token", _token);
                 ServerManager.Config.GameCommonConfig.SetValue("UserInfo", "IsLogin", "True");

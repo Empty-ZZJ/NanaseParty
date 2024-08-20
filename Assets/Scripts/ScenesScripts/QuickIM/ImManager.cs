@@ -66,12 +66,15 @@ namespace ScenesScripts.QucikIM
                 var _menhera_b = Instantiate(Resources.Load<GameObject>("GameObject/Scene/UIMain/AI/List_Menhera"), BackContent).GetComponent<AIChatBubble>();
                 _menhera_b.Content.text = "正在思考中.......";
                 _menhera_b.Content.text = await GetAnswer(InputField_ChatInfo.text);
+                if (!Application.isMobilePlatform)
+                {
+                    var _audio = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.Post($"{GameConst.API_URL}/ai/GetTTS", new { content = _menhera_b.Content.text }))["Audio"].ToString();
+                    Debug.Log(_audio);
+                    var _path = await Base64StringToFile(_audio);
+                    StartCoroutine(PlayAudio(_path));
+                }
 
 
-                var _audio = JsonConvert.DeserializeObject<JObject>(await NetworkHelp.Post($"{GameConst.API_URL}/ai/GetTTS", new { content = _menhera_b.Content.text }))["Audio"].ToString();
-                Debug.Log(_audio);
-                var _path = await Base64StringToFile(_audio);
-                StartCoroutine(PlayAudio(_path));
                 InputField_ChatInfo.text = string.Empty;
             }
             catch
