@@ -1,4 +1,3 @@
-using Common;
 using GameManager;
 using Newtonsoft.Json;
 using ScenesScripts.GalPlot;
@@ -74,12 +73,13 @@ namespace ScenesScripts.Lobby
                 }
 
             }
+            /*
             if (!IsEnable)//不满足解锁条件
             {
                 PlotImg.sprite = Resources.Load<Sprite>("Texture2D/Gal/lock");
                 PlotText.text += "(未解锁)";
 
-            }
+            }*/
 
 
             if (PlotInfo == null)
@@ -92,11 +92,6 @@ namespace ScenesScripts.Lobby
         }
         public void Button_Click_Select ()
         {
-            if (!IsEnable)
-            {
-                PopupManager.PopMessage("提示", "不满足解锁条件。");
-                return;
-            }
             var _data = Instantiate(PlotInfo).GetComponent<PlotIStartterManager>();
             _data.Title.text = PlotText.text;
             _data.Description.text = Description;
